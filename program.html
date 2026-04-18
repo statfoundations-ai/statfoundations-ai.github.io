@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program &mdash; Statistical Foundations of AI</title>
+    <meta name="theme-color" content="#122848">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Primary">
+    <div class="nav-inner">
+        <a class="nav-brand" href="index.html">
+            <span class="brand-text">Statistical Foundations of AI</span>
+        </a>
+        <button
+            class="nav-toggle"
+            id="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="nav-list"
+            aria-label="Toggle navigation"
+        >
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
+        <ul class="nav-list" id="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a class="is-active" href="program.html">Program</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="speakers.html">Speakers</a></li>
+            <li><a href="committee.html">Committee</a></li>
+            <li><a href="local-info.html">Local Info</a></li>
+            <li><a class="nav-cta" href="registration.html">Register</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header class="page-header">
+    <div class="page-header-inner">
+        <h1 class="page-title">Program Overview</h1>
+
+    </div>
+</header>
+
+<main id="main-content">
+
+    <section class="section">
+        <div class="section-wrap">
+            <div class="prose">
+                <p>
+                    [Overview of the program.]
+                </p>
+            </div>
+
+            <!--
+              Program PDF
+              -----------
+              Drop the final booklet into the site folder as `program.pdf`,
+              delete the .pdf-placeholder below, and un-comment the <object>
+              + download button that follows.
+            -->
+
+            <div class="pdf-container">
+                <div class="pdf-placeholder">
+                    <p class="pdf-placeholder-label">Program Details</p>
+                    <p>
+                        The full program PDF will appear here once finalized.
+                        <!--Replace this placeholder by adding <code>program.pdf</code> to the site folder.-->
+                    </p>
+                </div>
+
+                <!--
+                <object data="program.pdf" type="application/pdf" class="pdf-frame" aria-label="Conference program PDF">
+                    <p style="padding:24px;">
+                        Your browser can&rsquo;t display the embedded PDF.
+                        <a href="program.pdf" download>Download the program PDF</a> instead.
+                    </p>
+                </object>
+                <p class="pdf-actions">
+                    <a class="button button-primary" href="program.pdf" download>Download PDF</a>
+                </p>
+                -->
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <section class="footer-logos" aria-label="Host institutions and sponsors">
+            <ul class="logo-list">
+                <li class="logo-slot"><img src="logos/placeholder-logo.svg" alt="[Host Institution]"></li>
+                <li class="logo-slot"><img src="logos/placeholder-logo.svg" alt="[Co-host Institution]"></li>
+                <li class="logo-slot"><img src="logos/placeholder-logo.svg" alt="[Sponsor]"></li>
+                <li class="logo-slot"><img src="logos/placeholder-logo.svg" alt="[Sponsor]"></li>
+            </ul>
+        </section>
+
+        <div class="footer-bottom">
+            <div>
+                <p class="footer-title">Statistical Foundations of AI</p>
+                <p class="footer-meta">November 13&ndash;14 &middot; Santa Barbara, CA</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const navToggle = document.getElementById("nav-toggle");
+    const navList = document.getElementById("nav-list");
+
+    navToggle.addEventListener("click", () => {
+        const isOpen = navList.classList.toggle("active");
+        navToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    navList.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+            navList.classList.remove("active");
+            navToggle.setAttribute("aria-expanded", "false");
+        });
+    });
+</script>
+</body>
+</html>

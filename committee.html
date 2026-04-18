@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Committee &mdash; Statistical Foundations of AI</title>
+    <meta name="theme-color" content="#122848">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Primary">
+    <div class="nav-inner">
+        <a class="nav-brand" href="index.html">
+            <span class="brand-text">Statistical Foundations of AI</span>
+        </a>
+        <button
+            class="nav-toggle"
+            id="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="nav-list"
+            aria-label="Toggle navigation"
+        >
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
+        <ul class="nav-list" id="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="program.html">Program</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="speakers.html">Speakers</a></li>
+            <li><a class="is-active" href="committee.html">Committee</a></li>
+            <li><a href="local-info.html">Local Info</a></li>
+            <li><a class="nav-cta" href="registration.html">Register</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header class="page-header">
+    <div class="page-header-inner">
+        <h1 class="page-title">Committee</h1>
+        <p class="page-subtitle">
+            Organizing and program committee for Statistical Foundations of AI.
+        </p>
+    </div>
+</header>
+
+<main id="main-content">
+
+    <section class="section">
+        <div class="section-wrap">
+            <h3 class="subheading">Program Co-Chairs</h3>
+            <div class="committee-grid">
+                <div class="committee-member">
+                    <h4>Annie Qu</h4>
+                    <p>University of California, Santa Barbara</p>
+                </div>
+                <div class="committee-member">
+                    <h4>Xiaowu Dai</h4>
+                    <p>University of California, Los Angeles</p>
+                </div>
+            </div>
+
+            <h3 class="subheading">Program Committee</h3>
+            <div class="committee-grid">
+                <div class="committee-member">
+                    <h4>[Member Name]</h4>
+                    <p>[Institution]</p>
+                </div>
+                <div class="committee-member">
+                    <h4>[Member Name]</h4>
+                    <p>[Institution]</p>
+                </div>
+                <div class="committee-member">
+                    <h4>[Member Name]</h4>
+                    <p>[Institution]</p>
+                </div>
+                <div class="committee-member">
+                    <h4>[Member Name]</h4>
+                    <p>[Institution]</p>
+                </div>
+            </div>
+
+            <h3 class="subheading">Local Organizing Committee</h3>
+            <div class="committee-grid">
+                <div class="committee-member">
+                    <h4>[Member Name]</h4>
+                    <p>[Institution]</p>
+                </div>
+                <div class="committee-member">
+                    <h4>[Member Name]</h4>
+                    <p>[Institution]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <section class="footer-logos" aria-label="Host institutions and sponsors">
+            <ul class="logo-list">
+                <li class="logo-slot"><img src="logos/placeholder-logo.svg" alt="[Host Institution]"></li>
+                <li class="logo-slot"><img src="logos/placeholder-logo.svg" alt="[Co-host Institution]"></li>
+                <li class="logo-slot"><img src="logos/placeholder-logo.svg" alt="[Sponsor]"></li>
+                <li class="logo-slot"><img src="logos/placeholder-logo.svg" alt="[Sponsor]"></li>
+            </ul>
+        </section>
+
+        <div class="footer-bottom">
+            <div>
+                <p class="footer-title">Statistical Foundations of AI</p>
+                <p class="footer-meta">November 13&ndash;14 &middot; Santa Barbara, CA</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const navToggle = document.getElementById("nav-toggle");
+    const navList = document.getElementById("nav-list");
+
+    navToggle.addEventListener("click", () => {
+        const isOpen = navList.classList.toggle("active");
+        navToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    navList.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+            navList.classList.remove("active");
+            navToggle.setAttribute("aria-expanded", "false");
+        });
+    });
+</script>
+</body>
+</html>

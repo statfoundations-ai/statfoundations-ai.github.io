@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration &mdash; Statistical Foundations of AI</title>
+    <meta name="theme-color" content="#122848">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Primary">
+    <div class="nav-inner">
+        <a class="nav-brand" href="index.html">
+            <span class="brand-text">Statistical Foundations of AI</span>
+        </a>
+        <button
+            class="nav-toggle"
+            id="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="nav-list"
+            aria-label="Toggle navigation"
+        >
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
+        <ul class="nav-list" id="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="program.html">Program</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="speakers.html">Speakers</a></li>
+            <li><a href="committee.html">Committee</a></li>
+            <li><a href="local-info.html">Local Info</a></li>
+            <li><a class="nav-cta is-active" href="registration.html">Register</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header class="page-header">
+    <div class="page-header-inner">
+        <h1 class="page-title">Registration</h1>
+    </div>
+</header>
+
+<main id="main-content">
+
+    <section class="section">
+        <div class="section-wrap">
+            <div class="venue-grid">
+                <div class="prose">
+                    <p>
+                        [Registration instructions/details]
+                    </p>
+                    <div class="hero-cta" style="margin-top: 24px;">
+                        <a class="button button-primary" id="register-toggle" href="#register-form" aria-expanded="false" aria-controls="register-form">Register</a>
+                    </div>
+                </div>
+                <div class="key-dates">
+                    <h4>Fees &amp; deadlines</h4>
+                    <table class="fees-table">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Early</th>
+                                <th scope="col">Regular</th>
+                                <th scope="col">Late</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Regular</th>
+                                <td><span class="fee-date">by [date]</span><span class="fee-amount">$[amount]</span></td>
+                                <td><span class="fee-date">by [date]</span><span class="fee-amount">$[amount]</span></td>
+                                <td><span class="fee-date">after [date]</span><span class="fee-amount">$[amount]</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Student</th>
+                                <td><span class="fee-date">by [date]</span><span class="fee-amount">$[amount]</span></td>
+                                <td><span class="fee-date">by [date]</span><span class="fee-amount">$[amount]</span></td>
+                                <td><span class="fee-date">after [date]</span><span class="fee-amount">$[amount]</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="register-card" id="register-form" hidden>
+                <div class="register-card-inner">
+                <h3 class="subheading" style="margin-top: 0;">Registration form (template)</h3>
+                <form id="registration-form" class="register-form" novalidate>
+                    <div class="form-grid">
+                        <label class="form-field">
+                            <span>Full name <em>*</em></span>
+                            <input type="text" name="name" required>
+                        </label>
+                        <label class="form-field">
+                            <span>Email <em>*</em></span>
+                            <input type="email" name="email" required>
+                        </label>
+                        <label class="form-field form-field-wide">
+                            <span>Affiliation</span>
+                            <input type="text" name="affiliation" placeholder="University or company, department">
+                        </label>
+                        <label class="form-field">
+                            <span>Role</span>
+                            <select name="role">
+                                <option value="">Select&hellip;</option>
+                                <option>Faculty</option>
+                                <option>Postdoc</option>
+                                <option>Graduate student</option>
+                                <option>Undergraduate</option>
+                                <option>Industry</option>
+                                <option>Other</option>
+                            </select>
+                        </label>
+                        <label class="form-field">
+                            <span>Dietary restrictions</span>
+                            <input type="text" name="dietary" placeholder="e.g., vegetarian, gluten-free">
+                        </label>
+                    </div>
+
+                    <fieldset class="form-checks">
+                        <legend>Participation</legend>
+                        <label><input type="checkbox" name="poster" value="yes"> Submit a poster</label>
+                        <label><input type="checkbox" name="dinner" value="yes"> Attending dinner (Nov 13)</label>
+                        <label><input type="checkbox" name="excursion" value="yes"> Attending excursion (Nov 14)</label>
+                    </fieldset>
+
+                    <label class="form-field">
+                        <span>Notes or accessibility needs</span>
+                        <textarea name="notes" rows="3" placeholder="Anything else the organizers should know?"></textarea>
+                    </label>
+
+                    <div class="form-actions">
+                        <button type="submit" class="button button-primary">Submit registration</button>
+                        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <section class="footer-logos" aria-label="Host institutions and sponsors">
+            <ul class="logo-list">
+                <li class="logo-slot"><img src="logos/placeholder-logo.svg" alt="[Host Institution]"></li>
+                <li class="logo-slot"><img src="logos/placeholder-logo.svg" alt="[Co-host Institution]"></li>
+                <li class="logo-slot"><img src="logos/placeholder-logo.svg" alt="[Sponsor]"></li>
+                <li class="logo-slot"><img src="logos/placeholder-logo.svg" alt="[Sponsor]"></li>
+            </ul>
+        </section>
+
+        <div class="footer-bottom">
+            <div>
+                <p class="footer-title">Statistical Foundations of AI</p>
+                <p class="footer-meta">November 13&ndash;14 &middot; Santa Barbara, CA</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const navToggle = document.getElementById("nav-toggle");
+    const navList = document.getElementById("nav-list");
+
+    navToggle.addEventListener("click", () => {
+        const isOpen = navList.classList.toggle("active");
+        navToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    navList.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+            navList.classList.remove("active");
+            navToggle.setAttribute("aria-expanded", "false");
+        });
+    });
+
+    /*
+     * Registration form -> Google Sheet
+     * ---------------------------------
+     * 1. Create a Google Sheet for responses.
+     * 2. In the Sheet: Extensions > Apps Script. Paste the script below and save.
+     *
+     *     function doPost(e) {
+     *       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+     *       const d = JSON.parse(e.postData.contents);
+     *       if (sheet.getLastRow() === 0) {
+     *         sheet.appendRow(["Submitted At","Name","Email","Affiliation","Role","Dietary","Poster","Dinner","Excursion","Notes"]);
+     *       }
+     *       sheet.appendRow([
+     *         d.submittedAt || new Date().toISOString(),
+     *         d.name||"", d.email||"", d.affiliation||"", d.role||"",
+     *         d.dietary||"", d.poster||"no", d.dinner||"no", d.excursion||"no", d.notes||""
+     *       ]);
+     *       return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
+     *     }
+     *
+     * 3. Deploy > New deployment > Type: Web app.
+     *    Execute as: Me. Who has access: Anyone. Deploy.
+     * 4. Copy the web app URL and paste it into REGISTRATION_ENDPOINT below.
+     */
+    const REGISTRATION_ENDPOINT = "https://script.google.com/macros/s/AKfycbzAw7p8kAFOzo6SZ0sHDqxRzN_QoYFvS35Oop8pDKMr1VNLdLJ9B-AvXU9l8P9jBW3z/exec";
+
+    const registerToggle = document.getElementById("register-toggle");
+    const registerCard = document.getElementById("register-form");
+
+    registerToggle.addEventListener("click", (event) => {
+        event.preventDefault();
+        const isOpen = registerCard.classList.contains("is-open");
+        if (isOpen) {
+            registerCard.classList.remove("is-open");
+            registerToggle.setAttribute("aria-expanded", "false");
+            return;
+        }
+        registerCard.hidden = false;
+        requestAnimationFrame(() => {
+            registerCard.classList.add("is-open");
+        });
+        registerToggle.setAttribute("aria-expanded", "true");
+        setTimeout(() => {
+            registerCard.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 180);
+    });
+
+    const form = document.getElementById("registration-form");
+    const status = document.getElementById("form-status");
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const submitBtn = form.querySelector("button[type=submit]");
+        status.className = "form-status";
+        status.textContent = "Sending…";
+        submitBtn.disabled = true;
+
+        const data = Object.fromEntries(new FormData(form).entries());
+        ["poster", "dinner", "excursion"].forEach((key) => {
+            if (!(key in data)) data[key] = "no";
+        });
+        data.submittedAt = new Date().toISOString();
+
+        if (!REGISTRATION_ENDPOINT) {
+            status.className = "form-status is-error";
+            status.textContent = "Form endpoint not configured yet. Check the script block for setup steps.";
+            submitBtn.disabled = false;
+            return;
+        }
+
+        try {
+            await fetch(REGISTRATION_ENDPOINT, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(data),
+            });
+            status.className = "form-status is-success";
+            status.textContent = "Thanks — your registration was submitted.";
+            form.reset();
+        } catch (err) {
+            status.className = "form-status is-error";
+            status.textContent = "Something went wrong. Please try again, or email us directly.";
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>
