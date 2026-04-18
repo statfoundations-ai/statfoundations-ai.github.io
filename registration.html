@@ -123,10 +123,6 @@
                                 <option>Other</option>
                             </select>
                         </label>
-                        <label class="form-field">
-                            <span>Dietary restrictions</span>
-                            <input type="text" name="dietary" placeholder="e.g., vegetarian, gluten-free">
-                        </label>
                     </div>
 
                     <fieldset class="form-checks">
@@ -198,12 +194,12 @@
      *       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
      *       const d = JSON.parse(e.postData.contents);
      *       if (sheet.getLastRow() === 0) {
-     *         sheet.appendRow(["Submitted At","Name","Email","Affiliation","Role","Dietary","Poster","Dinner","Excursion","Notes"]);
+     *         sheet.appendRow(["Submitted At","Name","Email","Affiliation","Role","Poster","Dinner","Excursion","Notes"]);
      *       }
      *       sheet.appendRow([
      *         d.submittedAt || new Date().toISOString(),
      *         d.name||"", d.email||"", d.affiliation||"", d.role||"",
-     *         d.dietary||"", d.poster||"no", d.dinner||"no", d.excursion||"no", d.notes||""
+     *         d.poster||"no", d.dinner||"no", d.excursion||"no", d.notes||""
      *       ]);
      *       return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
      *     }
