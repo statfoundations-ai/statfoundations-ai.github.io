@@ -234,8 +234,41 @@
     const form = document.getElementById("registration-form");
     const status = document.getElementById("form-status");
 
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function validateForm() {
+        const name = form.elements.name;
+        const email = form.elements.email;
+
+        name.setCustomValidity("");
+        email.setCustomValidity("");
+
+        if (!name.value.trim()) {
+            name.setCustomValidity("Please enter your full name.");
+        }
+        const emailValue = email.value.trim();
+        if (!emailValue) {
+            email.setCustomValidity("Please enter your email address.");
+        } else if (!EMAIL_RE.test(emailValue)) {
+            email.setCustomValidity("Please enter a valid email address (e.g., you@example.edu).");
+        }
+
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return false;
+        }
+        return true;
+    }
+
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
+
+        if (!validateForm()) {
+            status.className = "form-status is-error";
+            status.textContent = "Please fix the highlighted field(s) and try again.";
+            return;
+        }
+
         const submitBtn = form.querySelector("button[type=submit]");
         status.className = "form-status";
         status.textContent = "Sending…";
