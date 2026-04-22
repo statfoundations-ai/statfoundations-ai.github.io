@@ -569,6 +569,34 @@ p, li, dd {
     color: var(--ink);
 }
 
+.committee-role-tag {
+    display: inline-block;
+    margin: 0 0 8px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--accent-tint);
+    color: var(--accent);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.committee-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--accent-bright);
+}
+
+.committee-link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
 .committee-member p {
     margin: 0;
     font-size: 0.88rem;
