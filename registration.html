@@ -58,9 +58,30 @@
         <div class="section-wrap">
             <div class="venue-grid">
                 <div class="prose">
-                    <p>
-                        [Registration instructions/details]
-                    </p>
+                    <div class="info-card">
+                        <p>
+                            <strong>Registration opens May 15, 2026.</strong>
+                        </p>
+                        <p class="addon-intro">The registration fee includes:</p>
+                        <ul class="includes-list">
+                            <li>Refreshments</li>
+                            <li>Coffee breaks</li>
+                            <li>Two lunches</li>
+                            <li>Poster reception</li>
+                        </ul>
+                        <p class="addon-intro">Registration windows:</p>
+                        <ul class="includes-list">
+                            <li><strong>Early-bird:</strong> May 15 &ndash; July 31</li>
+                            <li><strong>Regular:</strong> August 1 &ndash; November 13</li>
+                        </ul>
+                    </div>
+                    <h3 class="subheading" style="margin-top: 32px;">Additional</h3>
+                    <div class="info-card">
+                        <p><strong>Nov 13 banquet &mdash; $50</strong></p>
+                        <p><strong>Nov 14 excursion &mdash; $90</strong></p>
+                        <p>Wine-tasting tour with charter bus. About 40 minutes up the mountain with ocean views, plus snacks and water provided. Wine tasting is optional and self-paid.</p>
+                        <p><em>Seats limited to 60 &mdash; first come, first served.</em></p>
+                    </div>
                     <div class="hero-cta" style="margin-top: 24px;">
                         <a class="button button-primary" id="register-toggle" href="#register-form" aria-expanded="false" aria-controls="register-form">Register</a>
                     </div>
@@ -73,21 +94,27 @@
                                 <th scope="col"></th>
                                 <th scope="col">Early</th>
                                 <th scope="col">Regular</th>
-                                <th scope="col">Late</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th scope="row">Regular</th>
-                                <td><span class="fee-date">by [date]</span><span class="fee-amount">$[ ]</span></td>
-                                <td><span class="fee-date">by [date]</span><span class="fee-amount">$[ ]</span></td>
-                                <td><span class="fee-date">after [date]</span><span class="fee-amount">$[ ]</span></td>
+                                <td><span class="fee-date">May 15 &ndash; Jul 31</span><span class="fee-amount">$250</span></td>
+                                <td><span class="fee-date">Aug 1 &ndash; Nov 13</span><span class="fee-amount">$350</span></td>
                             </tr>
                             <tr>
-                                <th scope="row">Student</th>
-                                <td><span class="fee-date">by [date]</span><span class="fee-amount">$[ ]</span></td>
-                                <td><span class="fee-date">by [date]</span><span class="fee-amount">$[ ]</span></td>
-                                <td><span class="fee-date">after [date]</span><span class="fee-amount">$[ ]</span></td>
+                                <th scope="row">Student / Retired</th>
+                                <td><span class="fee-date">May 15 &ndash; Jul 31</span><span class="fee-amount">$100</span></td>
+                                <td><span class="fee-date">Aug 1 &ndash; Nov 13</span><span class="fee-amount">$150</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Additional</th>
+                                <td><span class="fee-date">Nov 13 banquet</span><span class="fee-amount">$50</span></td>
+                                <td><span class="fee-date">Nov 14 excursion</span><span class="fee-amount">$90</span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Bundle</th>
+                                <td colspan="2"><span class="fee-date">Reg. + banquet + excursion</span><span class="fee-amount">$380</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -149,11 +176,13 @@
 </main>
 
 <footer class="site-footer">
-    <section class="footer-logos" aria-label="Host institutions and sponsors">
+    <section class="footer-logos" aria-label="Sponsors">
         <div class="footer-inner">
+            <p class="footer-logos-label">Sponsors</p>
             <ul class="logo-list">
                 <li class="logo-slot"><img src="logos/ucsb.svg" alt="UC Santa Barbara"></li>
                 <li class="logo-slot"><img src="logos/ucla.svg" alt="UC Los Angeles"></li>
+                <li class="logo-slot"><img src="logos/MLPS.svg" alt="Division of Mathematical, Life, and Physical Sciences, UC Santa Barbara"></li>
             </ul>
         </div>
     </section>
