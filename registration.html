@@ -71,16 +71,13 @@
                         </ul>
                         <p class="addon-intro">Registration windows:</p>
                         <ul class="includes-list">
-                            <li><strong>Early-bird:</strong> May 15 &ndash; July 31</li>
-                            <li><strong>Regular:</strong> August 1 &ndash; November 13</li>
+                            <li><strong>Early-bird:</strong> May15 &ndash; August 31</li>
+                            <li><strong>Regular:</strong> September 1 &ndash; November 13</li>
                         </ul>
                     </div>
-                    <h3 class="subheading" style="margin-top: 32px;">Additional</h3>
+                    <h3 class="subheading" style="margin-top: 32px;">Optional add-on</h3>
                     <div class="info-card">
-                        <p><strong>Nov 13 banquet &mdash; $50</strong></p>
-                        <p><strong>Nov 14 excursion &mdash; $90</strong></p>
-                        <p>Wine-tasting tour with charter bus. About 40 minutes up the mountain with ocean views, plus snacks and water provided. Wine tasting is optional and self-paid.</p>
-                        <p><em>Seats limited to 60 &mdash; first come, first served.</em></p>
+                        <p><strong>Nov 13 banquet dinner &mdash; $80</strong></p>
                     </div>
                     <div class="hero-cta" style="margin-top: 24px;">
                         <a class="button button-primary" id="register-toggle" href="#register-form" aria-expanded="false" aria-controls="register-form">Register</a>
@@ -99,22 +96,17 @@
                         <tbody>
                             <tr>
                                 <th scope="row">Regular</th>
-                                <td><span class="fee-date">May 15 &ndash; Jul 31</span><span class="fee-amount">$250</span></td>
-                                <td><span class="fee-date">Aug 1 &ndash; Nov 13</span><span class="fee-amount">$350</span></td>
+                                <td><span class="fee-date">May 15 &ndash; Aug 31</span><span class="fee-amount">$300</span></td>
+                                <td><span class="fee-date">Sep 1 &ndash; Nov 13</span><span class="fee-amount">$380</span></td>
                             </tr>
                             <tr>
                                 <th scope="row">Student / Retired</th>
-                                <td><span class="fee-date">May 15 &ndash; Jul 31</span><span class="fee-amount">$100</span></td>
-                                <td><span class="fee-date">Aug 1 &ndash; Nov 13</span><span class="fee-amount">$150</span></td>
+                                <td><span class="fee-date">May 15 &ndash; Aug 31</span><span class="fee-amount">$120</span></td>
+                                <td><span class="fee-date">Sep 1 &ndash; Nov 13</span><span class="fee-amount">$200</span></td>
                             </tr>
                             <tr>
-                                <th scope="row">Additional</th>
-                                <td><span class="fee-date">Nov 13 banquet</span><span class="fee-amount">$50</span></td>
-                                <td><span class="fee-date">Nov 14 excursion</span><span class="fee-amount">$90</span></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Bundle<span class="fee-row-sub">Reg. + banquet + excursion</span></th>
-                                <td colspan="2"><span class="fee-date">May 15 &ndash; Jul 1</span><span class="fee-amount">$380</span></td>
+                                <th scope="row">Banquet</th>
+                                <td colspan="2"><span class="fee-date">Nov 13 &middot; optional add-on</span><span class="fee-amount">$80</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -155,8 +147,7 @@
                     <fieldset class="form-checks">
                         <legend>Participation</legend>
                         <label><input type="checkbox" name="poster" value="yes"> Submit a poster</label>
-                        <label><input type="checkbox" name="dinner" value="yes"> Attending dinner (Nov 13)</label>
-                        <label><input type="checkbox" name="excursion" value="yes"> Attending excursion (Nov 14)</label>
+                        <label><input type="checkbox" name="banquet" value="yes"> Attending banquet dinner (Nov 13) &mdash; $80</label>
                     </fieldset>
 
                     <label class="form-field">
@@ -222,12 +213,12 @@
      *       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
      *       const d = JSON.parse(e.postData.contents);
      *       if (sheet.getLastRow() === 0) {
-     *         sheet.appendRow(["Submitted At","Name","Email","Affiliation","Role","Poster","Dinner","Excursion","Notes"]);
+     *         sheet.appendRow(["Submitted At","Name","Email","Affiliation","Role","Poster","Banquet","Notes"]);
      *       }
      *       sheet.appendRow([
      *         d.submittedAt || new Date().toISOString(),
      *         d.name||"", d.email||"", d.affiliation||"", d.role||"",
-     *         d.poster||"no", d.dinner||"no", d.excursion||"no", d.notes||""
+     *         d.poster||"no", d.banquet||"no", d.notes||""
      *       ]);
      *       return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
      *     }
@@ -236,7 +227,7 @@
      *    Execute as: Me. Who has access: Anyone. Deploy.
      * 4. Copy the web app URL and paste it into REGISTRATION_ENDPOINT below.
      */
-    const REGISTRATION_ENDPOINT = "https://script.google.com/macros/s/AKfycbzAw7p8kAFOzo6SZ0sHDqxRzN_QoYFvS35Oop8pDKMr1VNLdLJ9B-AvXU9l8P9jBW3z/exec";
+    const REGISTRATION_ENDPOINT = "https://script.google.com/macros/s/AKfycbwVdMsZFsjGjF8ilim9MlH7DBuLQjwlibJ4bHLp2mb1ol0TD-y3EqB0l0LbRUPZhnUi/exec";
 
     const registerToggle = document.getElementById("register-toggle");
     const registerCard = document.getElementById("register-form");
@@ -303,7 +294,7 @@
         submitBtn.disabled = true;
 
         const data = Object.fromEntries(new FormData(form).entries());
-        ["poster", "dinner", "excursion"].forEach((key) => {
+        ["poster", "banquet"].forEach((key) => {
             if (!(key in data)) data[key] = "no";
         });
         data.submittedAt = new Date().toISOString();
