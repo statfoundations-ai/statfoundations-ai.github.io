@@ -1029,6 +1029,22 @@ p, li, dd {
     text-decoration: underline;
 }
 
+.contact-note {
+    margin: 16px 0 0;
+    font-size: 0.94rem;
+    color: var(--ink-soft);
+}
+
+.contact-note a {
+    font-weight: 500;
+    color: var(--accent-bright);
+}
+
+.contact-note a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
 /* --- Section framework --- */
 
 .section {
