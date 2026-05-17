@@ -75,6 +75,9 @@
                             <li><strong>Regular:</strong> September 1 &ndash; November 13</li>
                         </ul>
                     </div>
+                    <p class="travel-note">
+                        Junior researchers and students may be eligible for partial travel support, subject to availability of funding.
+                    </p>
                     <h3 class="subheading" style="margin-top: 32px;">Optional add-on</h3>
                     <div class="info-card">
                         <p><strong>Nov 13 banquet dinner &mdash; $80</strong></p>
@@ -118,6 +121,80 @@
 
         </div>
     </section>
+
+    <section class="section">
+        <div class="section-wrap">
+            <h2 class="page-title" style="color: var(--ink); font-size: clamp(1.4rem, 2.6vw, 1.8rem);">Abstract Submission</h2>
+            <div class="venue-grid" style="margin-top: 28px;">
+                <div class="prose">
+                    <div class="info-card">
+                        <p>
+                            Use this form to submit abstracts for <strong>invited talks</strong> or <strong>contributed posters</strong>.
+                        </p>
+                        <p>
+                            You must <a class="inline-link" href="https://na.eventscloud.com/882626" target="_blank" rel="noopener">register</a> before submitting an abstract. Your <strong>Registration ID</strong> (issued at registration) is required.
+                        </p>
+                    </div>
+                    <div class="hero-cta" style="margin-top: 24px;">
+                        <a class="button button-primary" id="abstract-toggle" href="#abstract-form" aria-expanded="false" aria-controls="abstract-form">Submit an abstract</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="register-card" id="abstract-form" hidden>
+                <div class="register-card-inner">
+                    <h3 class="subheading" style="margin-top: 0;">Abstract submission</h3>
+                    <form id="abstract-submission-form" class="register-form" novalidate>
+                        <p class="form-hint" style="margin-bottom: 4px;">
+                            You can resubmit with the same Registration ID at any time; later submissions overwrite the previous one.
+                        </p>
+                        <fieldset class="form-checks">
+                            <legend>Submission type <em>*</em></legend>
+                            <label><input type="radio" name="type" value="invited" required> Invited talk</label>
+                            <label><input type="radio" name="type" value="poster" required> Contributed poster</label>
+                        </fieldset>
+
+                        <div class="form-grid">
+                            <label class="form-field form-field-wide">
+                                <span>Registration ID <em>*</em></span>
+                                <input type="text" name="registrationId" required>
+                                <!--<small class="form-hint">From your EventsCloud confirmation email.</small>-->
+                            </label>
+                            <label class="form-field">
+                                <span>Full name <em>*</em></span>
+                                <input type="text" name="name" required>
+                            </label>
+                            <label class="form-field">
+                                <span>Email <em>*</em></span>
+                                <input type="email" name="email" required>
+                            </label>
+                            <label class="form-field form-field-wide">
+                                <span>Affiliation <em>*</em></span>
+                                <input type="text" name="affiliation" required>
+                            </label>
+                            <label class="form-field form-field-wide">
+                                <span>Title <em>*</em></span>
+                                <input type="text" name="title" required>
+                            </label>
+                            <label class="form-field form-field-wide">
+                                <span>Abstract <em>*</em></span>
+                                <textarea name="abstract" rows="8" required placeholder="Paste your abstract here."></textarea>
+                            </label>
+                            <label class="form-field form-field-wide">
+                                <span>Co-authors (optional)</span>
+                                <input type="text" name="coauthors" placeholder="First Last (Affiliation); First Last (Affiliation)">
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="button button-primary">Submit abstract</button>
+                            <p class="form-status" id="abstract-status" role="status" aria-live="polite"></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
 
 <footer class="site-footer">
@@ -128,6 +205,7 @@
                 <li class="logo-slot"><img src="logos/ucsb.svg" alt="UC Santa Barbara"></li>
                 <li class="logo-slot"><img src="logos/ucla.svg" alt="UC Los Angeles"></li>
                 <li class="logo-slot"><img src="logos/MLPS.svg" alt="Division of Mathematical, Life, and Physical Sciences, UC Santa Barbara"></li>
+                <li class="logo-slot logo-slot-lg"><img src="logos/CSFAI.svg" alt="Center for Statistical Foundations of AI"></li>
             </ul>
         </div>
     </section>
@@ -155,6 +233,148 @@
             navList.classList.remove("active");
             navToggle.setAttribute("aria-expanded", "false");
         });
+    });
+
+    /*
+     * Abstract submission form -> Google Sheet (via Apps Script)
+     * ----------------------------------------------------------
+     * The script below upserts on Registration ID: if a row with the same
+     * Registration ID already exists, it is overwritten in place so the sheet
+     * always has at most one row per registrant. Trimmed/case-insensitive
+     * match. NOTE: re-deploy after any code change so the live web app picks
+     * it up.
+     *
+     * 1. Create a Google Sheet for abstract submissions.
+     * 2. Extensions > Apps Script. Paste and save:
+     *
+        *     function doPost(e) {
+        *       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+        *       const d = JSON.parse(e.postData.contents);
+        *       const headers = ["Submitted At","Type","Registration ID","Name","Email",
+        *                        "Affiliation","Title","Abstract","Co-authors"];
+        *       if (sheet.getLastRow() === 0) {
+        *         sheet.appendRow(headers);
+        *       }
+        *       const row = [
+        *         d.submittedAt || new Date().toISOString(),
+        *         d.type||"", d.registrationId||"", d.name||"", d.email||"",
+        *         d.affiliation||"", d.title||"", d.abstract||"", d.coauthors||""
+        *       ];
+        *       const regId = String(d.registrationId || "").trim().toLowerCase();
+        *       let updated = false;
+        *       if (regId) {
+        *         const lastRow = sheet.getLastRow();
+        *         if (lastRow > 1) {
+        *           const ids = sheet.getRange(2, 3, lastRow - 1, 1).getValues();
+        *           for (let i = 0; i < ids.length; i++) {
+        *             if (String(ids[i][0]).trim().toLowerCase() === regId) {
+        *               sheet.getRange(i + 2, 1, 1, row.length).setValues([row]);
+        *               updated = true;
+        *               break;
+        *             }
+        *           }
+        *         }
+        *       }
+        *       if (!updated) sheet.appendRow(row);
+        *       return ContentService.createTextOutput(JSON.stringify({ok:true, updated:updated}))
+        *         .setMimeType(ContentService.MimeType.JSON);
+        *     }
+     *
+     * 3. Deploy > New deployment > Web app. Execute as: Me. Access: Anyone. Deploy.
+     * 4. Paste the resulting URL into ABSTRACT_ENDPOINT below.
+     */
+    const ABSTRACT_ENDPOINT = "https://script.google.com/macros/s/AKfycbzqFxb3P7fbIsyHDAUvXj8Yokn-BtDFpY8O5CJnpgvr0KkDSqjxq_eiL2LRSlwqjnwD/exec";
+
+    const abstractToggle = document.getElementById("abstract-toggle");
+    const abstractCard = document.getElementById("abstract-form");
+
+    abstractToggle.addEventListener("click", (event) => {
+        event.preventDefault();
+        const isOpen = abstractCard.classList.contains("is-open");
+        if (isOpen) {
+            abstractCard.classList.remove("is-open");
+            abstractToggle.setAttribute("aria-expanded", "false");
+            return;
+        }
+        abstractCard.hidden = false;
+        requestAnimationFrame(() => {
+            abstractCard.classList.add("is-open");
+        });
+        abstractToggle.setAttribute("aria-expanded", "true");
+        setTimeout(() => {
+            abstractCard.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 180);
+    });
+
+    const abstractForm = document.getElementById("abstract-submission-form");
+    const abstractStatus = document.getElementById("abstract-status");
+
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function validateAbstractForm() {
+        const name = abstractForm.elements.name;
+        const email = abstractForm.elements.email;
+
+        name.setCustomValidity("");
+        email.setCustomValidity("");
+
+        if (!name.value.trim()) {
+            name.setCustomValidity("Please enter your full name.");
+        }
+        const emailValue = email.value.trim();
+        if (!emailValue) {
+            email.setCustomValidity("Please enter your email address.");
+        } else if (!EMAIL_RE.test(emailValue)) {
+            email.setCustomValidity("Please enter a valid email address.");
+        }
+
+        if (!abstractForm.checkValidity()) {
+            abstractForm.reportValidity();
+            return false;
+        }
+        return true;
+    }
+
+    abstractForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (!validateAbstractForm()) {
+            abstractStatus.className = "form-status is-error";
+            abstractStatus.textContent = "Please fix the highlighted field(s) and try again.";
+            return;
+        }
+
+        const submitBtn = abstractForm.querySelector("button[type=submit]");
+        abstractStatus.className = "form-status";
+        abstractStatus.textContent = "Sending…";
+        submitBtn.disabled = true;
+
+        const data = Object.fromEntries(new FormData(abstractForm).entries());
+        data.submittedAt = new Date().toISOString();
+
+        if (!ABSTRACT_ENDPOINT) {
+            abstractStatus.className = "form-status is-error";
+            abstractStatus.textContent = "Submission endpoint not configured yet.";
+            submitBtn.disabled = false;
+            return;
+        }
+
+        try {
+            await fetch(ABSTRACT_ENDPOINT, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(data),
+            });
+            abstractStatus.className = "form-status is-success";
+            abstractStatus.textContent = "Your submission was saved. To make changes, submit again using the same Registration ID.";
+            abstractForm.reset();
+        } catch (err) {
+            abstractStatus.className = "form-status is-error";
+            abstractStatus.textContent = "Something went wrong. Please try again, or email events@pstat.ucsb.edu.";
+        } finally {
+            submitBtn.disabled = false;
+        }
     });
 </script>
 </body>

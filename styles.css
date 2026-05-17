@@ -768,6 +768,17 @@ p, li, dd {
     margin-bottom: 0;
 }
 
+.travel-note {
+    margin: 18px 0 0;
+    padding: 10px 14px;
+    border-left: 2px solid rgba(200, 155, 60, 0.5);
+    background: rgba(200, 155, 60, 0.36);
+    border-radius: var(--radius-lg);
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+}
+
 /* Registration form */
 
 .register-card {
@@ -860,6 +871,13 @@ p, li, dd {
     outline: none;
     border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(18, 40, 72, 0.14);
+}
+
+.form-hint {
+    margin-top: 4px;
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    line-height: 1.4;
 }
 
 .form-checks {
@@ -1812,6 +1830,10 @@ p, li, dd {
     max-width: 100%;
     width: auto;
     object-fit: contain;
+}
+
+.logo-slot.logo-slot-lg img {
+    max-height: 100px;
 }
 
 .footer-bottom {
