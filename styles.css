@@ -880,6 +880,20 @@ p, li, dd {
     line-height: 1.4;
 }
 
+.abstract-form-card {
+    margin-top: 32px;
+    padding: 32px;
+    border-radius: var(--radius-lg);
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+}
+
+@media (max-width: 600px) {
+    .abstract-form-card {
+        padding: 22px 18px;
+    }
+}
+
 .form-checks {
     margin: 0;
     padding: 14px 18px 16px;
