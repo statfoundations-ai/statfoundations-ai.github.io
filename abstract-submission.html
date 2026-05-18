@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abstract Submission &mdash; Statistical Foundations of AI</title>
+    <meta name="theme-color" content="#122848">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Primary">
+    <div class="nav-inner">
+        <a class="nav-brand" href="index.html">
+            <span class="brand-text">Statistical Foundations of AI</span>
+        </a>
+        <button
+            class="nav-toggle"
+            id="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="nav-list"
+            aria-label="Toggle navigation"
+        >
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
+        <ul class="nav-list" id="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="program.html">Program</a></li>
+            <li><a href="schedule.html">Schedule</a></li>
+            <li><a href="speakers.html">Speakers</a></li>
+            <li><a href="committee.html">Committee</a></li>
+            <li><a href="local-info.html">Local Info</a></li>
+            <li><a class="is-active" href="abstract-submission.html">Abstracts</a></li>
+            <li><a class="nav-cta" href="registration.html">Register</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header class="page-header">
+    <div class="page-header-inner">
+        <h1 class="page-title">Abstract Submission</h1>
+    </div>
+</header>
+
+<main id="main-content">
+
+    <section class="section">
+        <div class="section-wrap">
+            <div class="venue-grid">
+                <div class="prose">
+                    <div class="info-card">
+                        <p>
+                            Use this form to submit abstracts for <strong>invited talks</strong> or <strong>contributed posters</strong>.
+                        </p>
+                        <p>
+                            You must <a class="inline-link" href="registration.html">register</a> before submitting an abstract. Your <strong>Registration ID</strong> (issued at registration) is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="abstract-form-card">
+                <h3 class="subheading" style="margin-top: 0;">Abstract submission</h3>
+                <form id="abstract-submission-form" class="register-form" novalidate>
+                        <p class="form-hint" style="margin-bottom: 4px;">
+                            You can resubmit with the same Registration ID at any time; later submissions overwrite the previous one.
+                        </p>
+                        <fieldset class="form-checks">
+                            <legend>Submission type <em>*</em></legend>
+                            <label><input type="radio" name="type" value="invited" required> Invited talk</label>
+                            <label><input type="radio" name="type" value="poster" required> Contributed poster</label>
+                        </fieldset>
+
+                        <div class="form-grid">
+                            <label class="form-field form-field-wide">
+                                <span>Registration ID <em>*</em></span>
+                                <input type="text" name="registrationId" required>
+                            </label>
+                            <label class="form-field">
+                                <span>Full name <em>*</em></span>
+                                <input type="text" name="name" required>
+                            </label>
+                            <label class="form-field">
+                                <span>Email <em>*</em></span>
+                                <input type="email" name="email" required>
+                            </label>
+                            <label class="form-field form-field-wide">
+                                <span>Affiliation <em>*</em></span>
+                                <input type="text" name="affiliation" required>
+                            </label>
+                            <label class="form-field form-field-wide">
+                                <span>Title <em>*</em></span>
+                                <input type="text" name="title" required>
+                            </label>
+                            <label class="form-field form-field-wide">
+                                <span>Abstract <em>*</em></span>
+                                <textarea name="abstract" rows="8" required placeholder="Paste your abstract here."></textarea>
+                            </label>
+                            <label class="form-field form-field-wide">
+                                <span>Co-authors (optional)</span>
+                                <input type="text" name="coauthors" placeholder="First Last (Affiliation); First Last (Affiliation)">
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="button button-primary">Submit abstract</button>
+                            <p class="form-status" id="abstract-status" role="status" aria-live="polite"></p>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <section class="footer-logos" aria-label="Sponsors">
+        <div class="footer-inner">
+            <p class="footer-logos-label">Sponsors</p>
+            <ul class="logo-list">
+                <li class="logo-slot"><img src="logos/ucsb.svg" alt="UC Santa Barbara"></li>
+                <li class="logo-slot"><img src="logos/ucla.svg" alt="UC Los Angeles"></li>
+                <li class="logo-slot"><img src="logos/MLPS.svg" alt="Division of Mathematical, Life, and Physical Sciences, UC Santa Barbara"></li>
+                <li class="logo-slot logo-slot-lg"><img src="logos/CSFAI.svg" alt="Center for Statistical Foundations of AI"></li>
+            </ul>
+        </div>
+    </section>
+    <div class="footer-bottom">
+        <div class="footer-inner">
+            <div>
+                <p class="footer-title">Statistical Foundations of AI</p>
+                <p class="footer-meta">November 13&ndash;14 &middot; Santa Barbara, CA</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const navToggle = document.getElementById("nav-toggle");
+    const navList = document.getElementById("nav-list");
+
+    navToggle.addEventListener("click", () => {
+        const isOpen = navList.classList.toggle("active");
+        navToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    navList.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+            navList.classList.remove("active");
+            navToggle.setAttribute("aria-expanded", "false");
+        });
+    });
+
+    /*
+     * Abstract submission form -> Google Sheet (via Apps Script)
+     * ----------------------------------------------------------
+     * The script below upserts on Registration ID: if a row with the same
+     * Registration ID already exists, it is overwritten in place so the sheet
+     * always has at most one row per registrant. Trimmed/case-insensitive
+     * match. NOTE: re-deploy after any code change so the live web app picks
+     * it up.
+     *
+     * 1. Create a Google Sheet for abstract submissions.
+     * 2. Extensions > Apps Script. Paste and save:
+     *
+     *     function doPost(e) {
+     *       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+     *       const d = JSON.parse(e.postData.contents);
+     *       const headers = ["Submitted At","Type","Registration ID","Name","Email",
+     *                        "Affiliation","Title","Abstract","Co-authors"];
+     *       if (sheet.getLastRow() === 0) {
+     *         sheet.appendRow(headers);
+     *       }
+     *       const row = [
+     *         d.submittedAt || new Date().toISOString(),
+     *         d.type||"", d.registrationId||"", d.name||"", d.email||"",
+     *         d.affiliation||"", d.title||"", d.abstract||"", d.coauthors||""
+     *       ];
+     *       const regId = String(d.registrationId || "").trim().toLowerCase();
+     *       let updated = false;
+     *       if (regId) {
+     *         const lastRow = sheet.getLastRow();
+     *         if (lastRow > 1) {
+     *           const ids = sheet.getRange(2, 3, lastRow - 1, 1).getValues();
+     *           for (let i = 0; i < ids.length; i++) {
+     *             if (String(ids[i][0]).trim().toLowerCase() === regId) {
+     *               sheet.getRange(i + 2, 1, 1, row.length).setValues([row]);
+     *               updated = true;
+     *               break;
+     *             }
+     *           }
+     *         }
+     *       }
+     *       if (!updated) sheet.appendRow(row);
+     *       return ContentService.createTextOutput(JSON.stringify({ok:true, updated:updated}))
+     *         .setMimeType(ContentService.MimeType.JSON);
+     *     }
+     *
+     * 3. Deploy > New deployment > Web app. Execute as: Me. Access: Anyone. Deploy.
+     * 4. Paste the resulting URL into ABSTRACT_ENDPOINT below.
+     */
+    const ABSTRACT_ENDPOINT = "https://script.google.com/macros/s/AKfycbzqFxb3P7fbIsyHDAUvXj8Yokn-BtDFpY8O5CJnpgvr0KkDSqjxq_eiL2LRSlwqjnwD/exec";
+
+    const abstractForm = document.getElementById("abstract-submission-form");
+    const abstractStatus = document.getElementById("abstract-status");
+
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function validateAbstractForm() {
+        const name = abstractForm.elements.name;
+        const email = abstractForm.elements.email;
+
+        name.setCustomValidity("");
+        email.setCustomValidity("");
+
+        if (!name.value.trim()) {
+            name.setCustomValidity("Please enter your full name.");
+        }
+        const emailValue = email.value.trim();
+        if (!emailValue) {
+            email.setCustomValidity("Please enter your email address.");
+        } else if (!EMAIL_RE.test(emailValue)) {
+            email.setCustomValidity("Please enter a valid email address.");
+        }
+
+        if (!abstractForm.checkValidity()) {
+            abstractForm.reportValidity();
+            return false;
+        }
+        return true;
+    }
+
+    abstractForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (!validateAbstractForm()) {
+            abstractStatus.className = "form-status is-error";
+            abstractStatus.textContent = "Please fix the highlighted field(s) and try again.";
+            return;
+        }
+
+        const submitBtn = abstractForm.querySelector("button[type=submit]");
+        abstractStatus.className = "form-status";
+        abstractStatus.textContent = "Sending…";
+        submitBtn.disabled = true;
+
+        const data = Object.fromEntries(new FormData(abstractForm).entries());
+        data.submittedAt = new Date().toISOString();
+
+        if (!ABSTRACT_ENDPOINT) {
+            abstractStatus.className = "form-status is-error";
+            abstractStatus.textContent = "Submission endpoint not configured yet.";
+            submitBtn.disabled = false;
+            return;
+        }
+
+        try {
+            await fetch(ABSTRACT_ENDPOINT, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
+                body: JSON.stringify(data),
+            });
+            abstractStatus.className = "form-status is-success";
+            abstractStatus.textContent = "Your submission was saved. To make changes, submit again using the same Registration ID.";
+            abstractForm.reset();
+        } catch (err) {
+            abstractStatus.className = "form-status is-error";
+            abstractStatus.textContent = "Something went wrong. Please try again, or email events@pstat.ucsb.edu.";
+        } finally {
+            submitBtn.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>
