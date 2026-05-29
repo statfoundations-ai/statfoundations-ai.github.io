@@ -1365,6 +1365,7 @@ p, li, dd {
     padding: 2px 8px;
     border-radius: 5px;
     background: var(--accent-tint);
+    border: 1px solid var(--line);
     border-left: 3px solid var(--accent);
     overflow: hidden;
     display: flex;
