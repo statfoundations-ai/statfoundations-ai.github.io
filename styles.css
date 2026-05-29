@@ -1293,8 +1293,8 @@ p, li, dd {
             var(--line) calc(50% + 0.5px),
             transparent calc(50% + 0.5px)),
         repeating-linear-gradient(to bottom,
-            var(--line-soft) 0,
-            var(--line-soft) 1px,
+            var(--line) 0,
+            var(--line) 1px,
             transparent 1px,
             transparent calc(var(--slot-h) * 6));
     background-position: 0 0, 0 calc(var(--slot-h) * 6);
