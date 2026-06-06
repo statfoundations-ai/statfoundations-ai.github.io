@@ -832,7 +832,7 @@ p, li, dd {
 }
 
 .hotel-card .hotel-reserve {
-    align-self: center;
+    align-self: stretch;
     margin-top: auto;
     min-height: 40px;
     padding: 0 28px;
@@ -1892,6 +1892,30 @@ p, li, dd {
     grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
     gap: 56px;
     align-items: start;
+}
+
+.venue-grid .prose-venue {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.venue-grid > .venue-side {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+}
+
+.venue-grid .prose-rest {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+@media (max-width: 960px) {
+    .venue-grid .prose-venue,
+    .venue-grid > .venue-side,
+    .venue-grid .prose-rest {
+        grid-column: 1;
+        grid-row: auto;
+    }
 }
 
 .key-dates {
