@@ -762,11 +762,17 @@ p, li, dd {
 
 .hotel-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-auto-rows: 1fr;
     gap: 16px;
     margin: 14px 0 0;
     align-items: stretch;
+}
+
+@media (max-width: 560px) {
+    .hotel-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .hotel-card {
