@@ -188,6 +188,8 @@ p, li, dd {
     font-weight: 500;
     padding: 8px 14px;
     border-radius: var(--radius);
+    text-align: center;
+    white-space: nowrap;
     transition: color 0.2s ease, background-color 0.2s ease;
 }
 
@@ -755,8 +757,10 @@ p, li, dd {
 .hotel-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-auto-rows: 1fr;
     gap: 16px;
     margin: 14px 0 0;
+    align-items: stretch;
 }
 
 .hotel-card {
@@ -771,15 +775,33 @@ p, li, dd {
 
 .hotel-card h4 {
     margin: 0;
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: var(--ink);
+}
+
+.hotel-tax {
+    margin: -4px 0 0;
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+}
+
+.hotel-tax + .hotel-notes,
+.hotel-notes + .hotel-notes {
+    margin-top: -10px;
 }
 
 .hotel-meta {
     margin: 0;
-    font-size: 0.84rem;
+    font-size: 0.78rem;
     color: var(--ink-soft);
     line-height: 1.5;
+}
+
+.hotel-meta-label {
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 
 .hotel-rates {
@@ -803,9 +825,42 @@ p, li, dd {
     line-height: 1.5;
 }
 
-.hotel-card .inline-link {
+.hotel-card .hotel-reserve {
+    align-self: center;
     margin-top: auto;
-    align-self: flex-start;
+    min-height: 40px;
+    padding: 0 28px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.hotel-card .hotel-reserve:hover {
+    background: var(--accent-bright);
+    color: #fff;
+}
+
+.hotel-guides {
+    margin: -14px 0 8px !important;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 8px;
+    row-gap: 4px;
+}
+
+.hotel-guides .hotel-meta-label {
+    margin-right: 8px;
+}
+
+.hotel-guides .inline-link {
+    font-weight: 500;
+}
+
+.hotel-guides-sep {
+    color: var(--ink-muted);
 }
 
 /* Registration info card */
