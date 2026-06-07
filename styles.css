@@ -1772,15 +1772,20 @@ p, li, dd {
 }
 
 @media (max-width: 600px) {
-    .speaker-row .speaker-card > summary {
-        flex-direction: column;
+    .speaker-row .speaker-photo {
+        width: 130px;
     }
 
-    .speaker-row .speaker-photo {
-        width: 100%;
-        aspect-ratio: 4 / 5;
-        border-right: none;
-        border-bottom: 1px solid var(--line);
+    .speaker-row .speaker-body {
+        padding: 18px 18px 16px;
+    }
+
+    .speaker-row .speaker-body h4 {
+        font-size: 1.1rem;
+    }
+
+    .speaker-row .speaker-talk {
+        font-size: 0.92rem;
     }
 }
 
@@ -2186,6 +2191,10 @@ p, li, dd {
 
     .speaker-row {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .speaker-row:has(> .speaker-card:only-child) {
+        grid-template-columns: 1fr;
     }
 
     .hero-meta-divider {
