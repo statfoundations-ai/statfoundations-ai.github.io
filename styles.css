@@ -1691,6 +1691,199 @@ p, li, dd {
 
 /* Legend */
 
+/* --- Schedule (new stacked timeline) --- */
+
+.schedule-jump {
+    display: none;
+}
+
+@media (max-width: 720px) {
+    .schedule-jump {
+        position: sticky;
+        top: 68px;
+        z-index: 90;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin: 0 0 8px;
+        padding: 12px 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--line-soft);
+    }
+
+    .schedule-jump a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 14px;
+        font-size: 0.86rem;
+        font-weight: 500;
+        text-align: center;
+        color: var(--accent);
+        background: #d6dfee;
+        border-radius: 999px;
+        transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .schedule-jump a:hover,
+    .schedule-jump a:focus-visible {
+        background: var(--accent);
+        color: #fff;
+    }
+}
+
+.schedule {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 24px;
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 10px 32px rgba(17, 28, 51, 0.06);
+}
+
+.schedule-day {
+    background: var(--bg-alt);
+}
+
+.schedule-day + .schedule-day {
+    border-left: 1px solid var(--line);
+}
+
+@media (max-width: 720px) {
+    .schedule {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: visible;
+    }
+
+    .schedule-day {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: 0 10px 32px rgba(17, 28, 51, 0.06);
+    }
+
+    .schedule-day + .schedule-day {
+        border-left: 1px solid var(--line);
+    }
+}
+
+.schedule-day-head {
+    background: var(--accent);
+    color: #fff;
+    padding: 14px 22px;
+}
+
+.schedule-weekday {
+    display: block;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 2px;
+}
+
+.schedule-day-head h3 {
+    color: #fff;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.schedule-events {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.schedule-event {
+    padding: 12px 22px;
+    border-top: 1px solid var(--line-soft);
+    border-left: 3px solid transparent;
+    background: var(--bg-alt);
+}
+
+.schedule-event:first-child {
+    border-top: none;
+}
+
+.schedule-event time {
+    display: block;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    letter-spacing: 0.02em;
+    margin-bottom: 4px;
+    font-variant-numeric: tabular-nums;
+}
+
+.schedule-event h4 {
+    margin: 0;
+    font-size: 0.96rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.25;
+}
+
+.schedule-event p {
+    margin: 4px 0 0;
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+}
+
+.schedule-event.is-keynote {
+    background: var(--highlight-tint);
+    border-left-color: var(--highlight);
+}
+
+.schedule-event.is-parallel {
+    border-left-color: var(--accent-bright);
+}
+
+.schedule-event.is-social {
+    background: var(--accent-tint);
+    border-left-color: var(--accent-bright);
+}
+
+.schedule-event.is-break {
+    background: transparent;
+}
+
+.schedule-event.is-break h4 {
+    color: var(--ink-muted);
+    font-weight: 500;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.schedule-legend {
+    list-style: none;
+    margin: 22px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 20px;
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+}
+
+.schedule-legend li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .cal-legend {
     list-style: none;
     margin: 18px 0 0;

@@ -57,91 +57,102 @@
 
     <section class="section section-schedule">
         <div class="section-wrap">
-            <div class="calendar-scroll">
-                <div class="calendar">
-                    <div class="cal-head cal-head-gutter" aria-hidden="true"></div>
-                    <div class="cal-head">
-                        <span class="cal-weekday">Friday</span>
+            <nav class="schedule-jump" aria-label="Jump to day">
+                <a href="#day-friday">Friday &middot; Nov 13</a>
+                <a href="#day-saturday">Saturday &middot; Nov 14</a>
+            </nav>
+
+            <div class="schedule">
+                <section class="schedule-day" id="day-friday">
+                    <header class="schedule-day-head">
+                        <span class="schedule-weekday">Friday</span>
                         <h3>Nov 13</h3>
-                    </div>
-                    <div class="cal-head">
-                        <span class="cal-weekday">Saturday</span>
+                    </header>
+                    <ol class="schedule-events">
+                        <li class="schedule-event is-parallel">
+                            <time>8:30 &ndash; 10:30 am</time>
+                            <h4>Parallel Sessions</h4>
+                            <p>4 rooms &middot; 5 speakers each</p>
+                        </li>
+                        <li class="schedule-event is-break">
+                            <time>10:30 &ndash; 11:00 am</time>
+                            <h4>Break</h4>
+                        </li>
+                        <li class="schedule-event is-keynote">
+                            <time>11:00 am &ndash; 12:00 pm</time>
+                            <h4>Keynote 1</h4>
+                        </li>
+                        <li class="schedule-event is-break">
+                            <time>12:00 &ndash; 1:00 pm</time>
+                            <h4>Lunch</h4>
+                        </li>
+                        <li class="schedule-event is-parallel">
+                            <time>1:00 &ndash; 3:00 pm</time>
+                            <h4>Parallel Sessions</h4>
+                            <p>4 rooms &middot; 5 speakers each</p>
+                        </li>
+                        <li class="schedule-event is-break">
+                            <time>3:00 &ndash; 3:30 pm</time>
+                            <h4>Break</h4>
+                        </li>
+                        <li class="schedule-event is-parallel">
+                            <time>3:30 &ndash; 5:30 pm</time>
+                            <h4>Parallel Sessions</h4>
+                            <p>4 rooms &middot; 5 speakers each</p>
+                        </li>
+                        <li class="schedule-event">
+                            <time>5:30 &ndash; 6:30 pm</time>
+                            <h4>Poster Session</h4>
+                        </li>
+                        <li class="schedule-event is-social">
+                            <time>7:00 &ndash; 8:30 pm</time>
+                            <h4>Banquet Dinner</h4>
+                        </li>
+                    </ol>
+                </section>
+
+                <section class="schedule-day" id="day-saturday">
+                    <header class="schedule-day-head">
+                        <span class="schedule-weekday">Saturday</span>
                         <h3>Nov 14</h3>
-                    </div>
-
-                    <span class="cal-time" style="grid-row: 2;">8:00 am</span>
-                    <span class="cal-time" style="grid-row: 8;">9:00</span>
-                    <span class="cal-time" style="grid-row: 14;">10:00</span>
-                    <span class="cal-time" style="grid-row: 20;">11:00</span>
-                    <span class="cal-time" style="grid-row: 26;">Noon</span>
-                    <span class="cal-time" style="grid-row: 32;">1:00 pm</span>
-                    <span class="cal-time" style="grid-row: 38;">2:00</span>
-                    <span class="cal-time" style="grid-row: 44;">3:00</span>
-                    <span class="cal-time" style="grid-row: 50;">4:00</span>
-                    <span class="cal-time" style="grid-row: 56;">5:00</span>
-                    <span class="cal-time" style="grid-row: 62;">6:00</span>
-                    <span class="cal-time" style="grid-row: 68;">7:00</span>
-                    <span class="cal-time" style="grid-row: 74;">8:00</span>
-
-                    <div class="cal-event is-parallel" style="grid-column: 2; grid-row: 5 / 17;">
-                        <h4>Parallel Sessions</h4>
-                        <p>4 rooms &middot; 5 speakers each</p>
-                    </div>
-                    <div class="cal-event is-break" style="grid-column: 2; grid-row: 17 / 20;">
-                        <h4>Break</h4>
-                    </div>
-                    <div class="cal-event is-keynote" style="grid-column: 2; grid-row: 20 / 26;">
-                        <h4>Keynote 1</h4>
-                    </div>
-                    <div class="cal-event is-break" style="grid-column: 2; grid-row: 26 / 32;">
-                        <h4>Lunch</h4>
-                    </div>
-                    <div class="cal-event is-parallel" style="grid-column: 2; grid-row: 32 / 44;">
-                        <h4>Parallel Sessions</h4>
-                        <p>4 rooms &middot; 5 speakers each</p>
-                    </div>
-                    <div class="cal-event is-break" style="grid-column: 2; grid-row: 44 / 47;">
-                        <h4>Break</h4>
-                    </div>
-                    <div class="cal-event is-parallel" style="grid-column: 2; grid-row: 47 / 59;">
-                        <h4>Parallel Sessions</h4>
-                        <p>4 rooms &middot; 5 speakers each</p>
-                    </div>
-                    <div class="cal-event" style="grid-column: 2; grid-row: 59 / 65;">
-                        <h4>Poster Session</h4>
-                    </div>
-                    <div class="cal-event is-social" style="grid-column: 2; grid-row: 68 / 77;">
-                        <h4>Banquet Dinner</h4>
-                    </div>
-
-                    <div class="cal-event is-parallel" style="grid-column: 3; grid-row: 5 / 17;">
-                        <h4>Parallel Sessions</h4>
-                        <p>4 rooms &middot; 5 speakers each</p>
-                    </div>
-                    <div class="cal-event is-break" style="grid-column: 3; grid-row: 17 / 20;">
-                        <h4>Break</h4>
-                    </div>
-                    <div class="cal-event is-keynote" style="grid-column: 3; grid-row: 20 / 26;">
-                        <h4>Keynote 2</h4>
-                    </div>
-                    <div class="cal-event is-break" style="grid-column: 3; grid-row: 26 / 32;">
-                        <h4>Lunch</h4>
-                    </div>
-                    <div class="cal-event is-parallel" style="grid-column: 3; grid-row: 32 / 44;">
-                        <h4>Parallel Sessions</h4>
-                        <p>4 rooms &middot; 5 speakers each</p>
-                    </div>
-                    <div class="cal-event is-break" style="grid-column: 3; grid-row: 44 / 47;">
-                        <h4>Break</h4>
-                    </div>
-                    <div class="cal-event is-parallel" style="grid-column: 3; grid-row: 47 / 59;">
-                        <h4>Parallel Sessions</h4>
-                        <p>4 rooms &middot; 5 speakers each</p>
-                    </div>
-                </div>
+                    </header>
+                    <ol class="schedule-events">
+                        <li class="schedule-event is-parallel">
+                            <time>8:30 &ndash; 10:30 am</time>
+                            <h4>Parallel Sessions</h4>
+                            <p>4 rooms &middot; 5 speakers each</p>
+                        </li>
+                        <li class="schedule-event is-break">
+                            <time>10:30 &ndash; 11:00 am</time>
+                            <h4>Break</h4>
+                        </li>
+                        <li class="schedule-event is-keynote">
+                            <time>11:00 am &ndash; 12:00 pm</time>
+                            <h4>Keynote 2</h4>
+                        </li>
+                        <li class="schedule-event is-break">
+                            <time>12:00 &ndash; 1:00 pm</time>
+                            <h4>Lunch</h4>
+                        </li>
+                        <li class="schedule-event is-parallel">
+                            <time>1:00 &ndash; 3:00 pm</time>
+                            <h4>Parallel Sessions</h4>
+                            <p>4 rooms &middot; 5 speakers each</p>
+                        </li>
+                        <li class="schedule-event is-break">
+                            <time>3:00 &ndash; 3:30 pm</time>
+                            <h4>Break</h4>
+                        </li>
+                        <li class="schedule-event is-parallel">
+                            <time>3:30 &ndash; 5:30 pm</time>
+                            <h4>Parallel Sessions</h4>
+                            <p>4 rooms &middot; 5 speakers each</p>
+                        </li>
+                    </ol>
+                </section>
             </div>
 
-            <ul class="cal-legend" aria-label="Legend">
+            <ul class="schedule-legend" aria-label="Legend">
                 <li><span class="legend-swatch legend-keynote"></span>Keynote</li>
                 <li><span class="legend-swatch legend-parallel"></span>Parallel session</li>
                 <li><span class="legend-swatch legend-social"></span>Social</li>
