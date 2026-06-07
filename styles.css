@@ -122,6 +122,27 @@ p, li, dd {
     max-width: 14ch;
 }
 
+.nav-inner:has(.nav-list.active) {
+    position: relative;
+}
+
+.nav-inner:has(.nav-list.active) .nav-brand {
+    display: none;
+}
+
+.nav-inner:has(.nav-list.active) .nav-list {
+    padding-bottom: 56px;
+}
+
+.nav-inner:has(.nav-list.active) .nav-toggle {
+    position: absolute;
+    order: initial;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
 .brand-mark {
     display: inline-flex;
     align-items: center;
