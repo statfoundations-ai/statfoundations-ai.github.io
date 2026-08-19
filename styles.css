@@ -607,6 +607,24 @@ p, li, dd {
     max-width: 54ch;
 }
 
+/* Full-bleed announcement strip that sits directly beneath a page header,
+ * so a status line reads as active news rather than as body copy. */
+
+.page-notice {
+    background: var(--accent-tint);
+    border-bottom: 1px solid var(--line-soft);
+    padding: 15px 0;
+    text-align: center;
+}
+
+.page-notice-inner {
+    width: min(calc(100% - 40px), var(--content));
+    margin: 0 auto;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--ink);
+}
+
 /* Map panel */
 
 .venue-side {
@@ -888,17 +906,91 @@ p, li, dd {
 }
 
 @media (max-width: 600px) {
-    .fees-table tbody th {
-        width: 64px;
-    }
-
+    /* Three columns cannot hold a date range at this width: each fee column
+     * works out to ~92px of usable text against ~110px of date, and .fee-date
+     * is nowrap so it spilled instead of wrapping. Stack the table instead —
+     * each tier becomes a block with its two periods listed beneath it. */
+    .fees-table,
+    .fees-table tbody,
+    .fees-table tr,
     .fees-table th,
     .fees-table td {
-        padding: 8px 6px;
+        display: block;
+        width: auto;
+    }
+
+    /* Column headings move into each cell via data-label. */
+    .fees-table thead {
+        display: none;
+    }
+
+    .fees-table tbody tr {
+        padding: 14px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .fees-table tbody tr:first-child {
+        border-top: none;
+        padding-top: 0;
+    }
+
+    /* The row border above replaces the per-cell borders used on desktop. */
+    .fees-table tbody tr + tr th,
+    .fees-table tbody tr + tr td {
+        border-top: none;
+    }
+
+    .fees-table tbody th {
+        /* width:auto must be repeated at this specificity: the base rule is
+         * `.fees-table tbody th { width: 92px }` (0,1,2), which outranks the
+         * `.fees-table th` reset above (0,1,1) and kept the label boxed into
+         * 92px, wrapping "Student / Retired" onto two lines. */
+        width: auto;
+        padding: 0 0 6px;
+        font-size: 0.84rem;
+    }
+
+    .fees-table tbody td {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: baseline;
+        column-gap: 12px;
+        padding: 4px 0;
+    }
+
+    .fees-table tbody td[data-label]::before {
+        content: attr(data-label);
+        grid-column: 1 / -1;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .fees-table .fee-date {
+        margin-bottom: 0;
+    }
+
+    /* Stacked rows are full width, so the qualifier can sit inline beside the
+     * label instead of stacking beneath it as it does on desktop. */
+    .fees-table .fee-row-sub {
+        display: inline;
+        margin-top: 0;
+    }
+
+    .fees-table .fee-row-sub::before {
+        content: " \00b7  ";
+        color: rgba(255, 255, 255, 0.4);
     }
 
     .fees-table .fee-amount {
-        font-size: 0.92rem;
+        font-size: 1.05rem;
+        text-align: right;
+    }
+
+    .key-dates {
+        padding: 24px 20px;
     }
 }
 
@@ -1115,6 +1207,12 @@ p, li, dd {
     border-radius: var(--radius-lg);
     background: rgba(200, 155, 60, 0.07);
     line-height: 1.6;
+}
+
+/* Given room to breathe when it trails a card, so it reads as its own aside
+ * rather than as a footnote attached to the block above. */
+.info-card + .travel-note {
+    margin-top: 30px;
 }
 
 .travel-note {
