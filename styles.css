@@ -138,8 +138,8 @@ html {
  * state to the next, in place. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-    animation-duration: 250ms;
-    animation-timing-function: ease;
+    animation-duration: 110ms;
+    animation-timing-function: ease-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
