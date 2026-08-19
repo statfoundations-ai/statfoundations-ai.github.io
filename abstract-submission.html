@@ -42,6 +42,7 @@
             <li><a href="committee.html">Committee</a></li>
             <li><a href="local-info.html">Local Info</a></li>
             <li><a class="is-active" href="abstract-submission.html">Abstracts</a></li>
+            <li><a href="travel-award.html">Travel Award</a></li>
             <li><a class="nav-cta" href="registration.html">Register</a></li>
         </ul>
     </div>
@@ -114,6 +115,37 @@
                             </label>
                         </div>
 
+                        <div class="poster-fields" id="poster-fields" hidden>
+                            <div>
+                                <h4 class="poster-fields-title">Travel award information</h4>
+                                <p class="form-hint" style="margin-top: 4px;">
+                                    Used to consider you for NSF-supported travel funding. See the <a class="inline-link" href="travel-award.html">travel award page</a> for eligibility and award amounts.
+                                </p>
+                            </div>
+
+                            <div class="form-grid">
+                                <label class="form-field">
+                                    <span>Status <em>*</em></span>
+                                    <select name="status" id="travel-status" data-poster-required>
+                                        <option value="">Select&hellip;</option>
+                                        <option value="Graduate student">Graduate student</option>
+                                        <option value="Within five years of graduation">Within five years of graduation</option>
+                                        <option value="Not applying for travel support">Not applying for travel support</option>
+                                    </select>
+                                </label>
+                                <label class="form-field" data-travel-eligible>
+                                    <span>Year of study or graduation <em>*</em></span>
+                                    <input type="text" name="statusYear" data-eligible-required placeholder="e.g., 3rd-year PhD, or graduated 2024">
+                                </label>
+                            </div>
+
+                            <fieldset class="form-checks" data-travel-eligible>
+                                <legend>Traveling from <em>*</em></legend>
+                                <label><input type="radio" name="travelOrigin" value="Outside California" data-eligible-required> Outside California</label>
+                                <label><input type="radio" name="travelOrigin" value="Within California" data-eligible-required> Within California</label>
+                            </fieldset>
+                        </div>
+
                         <div class="form-actions">
                             <button type="submit" class="button button-primary">Submit abstract</button>
                             <p class="form-status" id="abstract-status" role="status" aria-live="polite"></p>
@@ -166,55 +198,74 @@
     /*
      * Abstract submission form -> Google Sheet (via Apps Script)
      * ----------------------------------------------------------
-     * The script below upserts on Registration ID: if a row with the same
-     * Registration ID already exists, it is overwritten in place so the sheet
-     * always has at most one row per registrant. Trimmed/case-insensitive
-     * match. NOTE: re-deploy after any code change so the live web app picks
-     * it up.
+     * The server-side script lives in this repo at:
      *
-     * 1. Create a Google Sheet for abstract submissions.
-     * 2. Extensions > Apps Script. Paste and save:
+     *     apps-script/abstract-submission.gs
      *
-     *     function doPost(e) {
-     *       const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
-     *       const d = JSON.parse(e.postData.contents);
-     *       const headers = ["Submitted At","Type","Registration ID","Name","Email",
-     *                        "Affiliation","Title","Abstract","Co-authors"];
-     *       if (sheet.getLastRow() === 0) {
-     *         sheet.appendRow(headers);
-     *       }
-     *       const row = [
-     *         d.submittedAt || new Date().toISOString(),
-     *         d.type||"", d.registrationId||"", d.name||"", d.email||"",
-     *         d.affiliation||"", d.title||"", d.abstract||"", d.coauthors||""
-     *       ];
-     *       const regId = String(d.registrationId || "").trim().toLowerCase();
-     *       let updated = false;
-     *       if (regId) {
-     *         const lastRow = sheet.getLastRow();
-     *         if (lastRow > 1) {
-     *           const ids = sheet.getRange(2, 3, lastRow - 1, 1).getValues();
-     *           for (let i = 0; i < ids.length; i++) {
-     *             if (String(ids[i][0]).trim().toLowerCase() === regId) {
-     *               sheet.getRange(i + 2, 1, 1, row.length).setValues([row]);
-     *               updated = true;
-     *               break;
-     *             }
-     *           }
-     *         }
-     *       }
-     *       if (!updated) sheet.appendRow(row);
-     *       return ContentService.createTextOutput(JSON.stringify({ok:true, updated:updated}))
-     *         .setMimeType(ContentService.MimeType.JSON);
-     *     }
+     * Paste that file into the Sheet's Apps Script editor
+     * (Extensions > Apps Script), then Deploy > New deployment > Web app
+     * (Execute as: Me, Access: Anyone) and put the resulting URL in
+     * ABSTRACT_ENDPOINT below.
      *
-     * 3. Deploy > New deployment > Web app. Execute as: Me. Access: Anyone. Deploy.
-     * 4. Paste the resulting URL into ABSTRACT_ENDPOINT below.
+     * NOTE: after editing the .gs file you must redeploy a NEW VERSION
+     * (Deploy > Manage deployments > edit > Version: New version).
+     * Saving in the editor alone does not update the live web app.
      */
     const ABSTRACT_ENDPOINT = "https://script.google.com/macros/s/AKfycbzqFxb3P7fbIsyHDAUvXj8Yokn-BtDFpY8O5CJnpgvr0KkDSqjxq_eiL2LRSlwqjnwD/exec";
 
     const abstractForm = document.getElementById("abstract-submission-form");
     const abstractStatus = document.getElementById("abstract-status");
+
+    /*
+     * Contributed-poster submissions also collect travel-award details.
+     * Two nested conditions:
+     *   1. The whole block shows only for contributed posters.
+     *   2. Year + travel origin show only if the applicant is claiming
+     *      eligibility (i.e. has not chosen "Not applying for travel support").
+     * `required` is toggled with visibility so hidden fields never block
+     * validation, and hidden values are cleared so stale input is not sent.
+     */
+    const NOT_APPLYING = "Not applying for travel support";
+
+    const posterFields = document.getElementById("poster-fields");
+    const statusSelect = document.getElementById("travel-status");
+    const posterRequired = posterFields.querySelectorAll("[data-poster-required]");
+    const eligibleGroups = posterFields.querySelectorAll("[data-travel-eligible]");
+    const eligibleRequired = posterFields.querySelectorAll("[data-eligible-required]");
+
+    function clearField(field) {
+        if (field.type === "radio" || field.type === "checkbox") {
+            field.checked = false;
+        } else {
+            field.value = "";
+        }
+    }
+
+    function syncPosterFields() {
+        const isPoster = abstractForm.querySelector('input[name="type"]:checked')?.value === "poster";
+        const isEligible = isPoster && statusSelect.value !== "" && statusSelect.value !== NOT_APPLYING;
+
+        posterFields.hidden = !isPoster;
+        posterRequired.forEach((field) => {
+            field.required = isPoster;
+            if (!isPoster) clearField(field);
+        });
+
+        eligibleGroups.forEach((group) => {
+            group.hidden = !isEligible;
+        });
+        eligibleRequired.forEach((field) => {
+            field.required = isEligible;
+            if (!isEligible) clearField(field);
+        });
+    }
+
+    abstractForm.querySelectorAll('input[name="type"]').forEach((radio) => {
+        radio.addEventListener("change", syncPosterFields);
+    });
+    statusSelect.addEventListener("change", syncPosterFields);
+
+    syncPosterFields();
 
     const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -257,6 +308,9 @@
         submitBtn.disabled = true;
 
         const data = Object.fromEntries(new FormData(abstractForm).entries());
+        ["status", "statusYear", "travelOrigin"].forEach((key) => {
+            if (!(key in data)) data[key] = "";
+        });
         data.submittedAt = new Date().toISOString();
 
         if (!ABSTRACT_ENDPOINT) {
