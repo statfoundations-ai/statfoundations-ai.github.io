@@ -24,6 +24,38 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 150px;
+    /* Painted before the next document renders, so navigation never flashes white */
+    background: var(--bg);
+}
+
+/* --- Page transitions ---------------------------------------------------
+ * Cross-document View Transitions. Supported browsers cross-fade between
+ * pages instead of hard-cutting; unsupported ones ignore all of this and
+ * navigate exactly as before, so nothing is lost.
+ * ---------------------------------------------------------------------- */
+
+@view-transition {
+    navigation: auto;
+}
+
+/* Nothing is given a view-transition-name, deliberately.
+ *
+ * Naming the active nav shading made it physically glide between items. That
+ * animates the group's width/height, which are main-thread properties, so it
+ * competed with the incoming document's parse and layout and dropped frames.
+ * A plain cross-dissolve is opacity-only, runs on the compositor, and cannot
+ * stutter — the whole page including the nav shading simply softens from one
+ * state to the next, in place. */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 250ms;
+    animation-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    @view-transition {
+        navigation: none;
+    }
 }
 
 body {
@@ -92,8 +124,10 @@ p, li, dd {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(245, 241, 234, 0.94);
-    backdrop-filter: saturate(180%) blur(8px);
+    /* Opaque on purpose: this was rgba(...,0.94) + backdrop-filter blur, which
+     * is visually near-identical at that opacity but forces the compositor to
+     * re-blur the nav on every frame of every scroll and page transition. */
+    background: var(--bg);
     border-bottom: 1px solid var(--line-soft);
 }
 
@@ -605,6 +639,12 @@ p, li, dd {
 }
 
 .committee-member {
+    /* The speakers page holds ~130 of these. Skipping layout/paint for the
+     * offscreen ones keeps the main thread free during page transitions.
+     * `auto` lets the browser reuse each card's real height once measured,
+     * so the scrollbar does not jump. */
+    content-visibility: auto;
+    contain-intrinsic-size: auto 118px;
     padding: 18px 22px;
     border-radius: var(--radius-lg);
     background: var(--bg-alt);
@@ -1103,7 +1143,12 @@ p, li, dd {
 
 /* Travel award page */
 
-.travel-layout > .subheading {
+/* Both selectors are needed. The generic `.subheading:first-of-type` rule
+ * (margin-top: 8px) has the same specificity as `.travel-layout > .subheading`
+ * but is declared later, so it was winning and pulling "Eligibility" tight
+ * against the intro card. The second selector below outranks it. */
+.travel-layout > .subheading,
+.travel-layout > .subheading:first-of-type {
     margin-top: 36px;
 }
 
@@ -1264,11 +1309,18 @@ p, li, dd {
     margin-top: 8px;
 }
 
-#abstract-submission-form .form-actions .button {
+/* Wide pill shared by the page-level primary actions (the abstract form's
+ * submit and the travel award CTA) so the two read at the same weight.
+ * Sizing lives here, not in the rules below, so they cannot drift apart. */
+.button-wide {
     min-height: 44px;
     padding: 10px 56px;
     min-width: 320px;
+    max-width: 100%;
     font-size: 1.05rem;
+}
+
+#abstract-submission-form .form-actions .button {
     background: var(--accent);
     color: #fff;
 }
