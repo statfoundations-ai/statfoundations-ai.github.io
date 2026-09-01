@@ -887,6 +887,27 @@ p, li, dd {
     border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
+/* A pricing tier or policy window that has passed: kept for context, dimmed
+ * so it is not mistaken for something still obtainable. */
+.fees-table .is-past {
+    opacity: 0.5;
+}
+
+.includes-list li.is-past {
+    opacity: 0.55;
+    text-decoration: line-through;
+}
+
+.fee-col-note {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+}
+
 .fees-table .fee-date {
     display: block;
     font-size: 0.88rem;
