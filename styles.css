@@ -898,6 +898,40 @@ p, li, dd {
     text-decoration: line-through;
 }
 
+/* Status flag for a line item that can no longer be purchased. Gold on the
+ * navy card so it reads as a flag rather than as more table text. */
+.fee-badge {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--highlight);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    vertical-align: 2px;
+    white-space: nowrap;
+}
+
+/* Neutral sibling of .travel-note for logistics notices, so an operational
+ * message is not mistaken for the gold funding aside next to it. */
+.notice-note {
+    margin: 18px 0 0;
+    padding: 10px 14px;
+    border-left: 2px solid rgba(45, 82, 137, 0.45);
+    background: var(--accent-tint);
+    border-radius: var(--radius-lg);
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+}
+
+.info-card + .notice-note {
+    margin-top: 30px;
+}
+
 .fee-col-note {
     display: block;
     margin-top: 2px;
