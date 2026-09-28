@@ -2247,6 +2247,22 @@ p, li, dd {
     line-height: 1.4;
 }
 
+/* A slot that opens with a brief item before its main event: the lead-in is
+ * a single muted line, and only the featured event carries the keynote tint
+ * so the short item is not mistaken for a plenary. */
+.schedule-lead-in {
+    margin: 0 0 8px;
+}
+
+/* Bleeds past the row's padding so the tint spans the full row width and its
+ * accent bar lines up with the left border of every other event. */
+.schedule-feature {
+    margin: 0 -22px -12px -25px;
+    padding: 10px 22px 12px;
+    border-left: 3px solid var(--highlight);
+    background: var(--highlight-tint);
+}
+
 .schedule-event.is-keynote {
     background: var(--highlight-tint);
     border-left-color: var(--highlight);
