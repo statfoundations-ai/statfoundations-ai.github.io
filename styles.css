@@ -1531,6 +1531,24 @@ p, li, dd {
     cursor: pointer;
 }
 
+/* A submission type that is no longer open: kept visible so the option is
+ * accounted for, dimmed and flagged so it does not read as selectable. */
+.form-checks label.is-closed {
+    color: var(--ink-muted);
+    cursor: not-allowed;
+}
+
+.form-closed-flag {
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--line);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+}
+
 .form-checks input[type="checkbox"] {
     width: 16px;
     height: 16px;
