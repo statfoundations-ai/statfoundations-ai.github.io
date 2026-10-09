@@ -241,9 +241,11 @@ p, li, dd {
     min-width: 0;
 }
 
+/* The break sits in the markup as a <br> after "Statistical", so the second
+ * line always starts at "Foundations" regardless of font metrics. No
+ * max-width: a ch-based cap would re-wrap the lines it is meant to hold. */
 .brand-text {
     line-height: 1.2;
-    max-width: 14ch;
 }
 
 .nav-inner:has(.nav-list.active) {
@@ -514,6 +516,18 @@ p, li, dd {
 
 .button:hover {
     transform: translateY(-1px);
+}
+
+/* An action that is no longer available: dimmed, unclickable, and held still
+ * on hover so it does not invite a press. Also covers a button switched off
+ * by an enclosing disabled fieldset. */
+.button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.button:disabled:hover {
+    transform: none;
 }
 
 .button-primary {
@@ -1144,6 +1158,14 @@ p, li, dd {
     line-height: 1.5;
 }
 
+/* Sits with the block name and group code it applies to, so the closure is
+ * read as a fact about that block rather than as another booking note. */
+.hotel-meta-closed {
+    display: inline-block;
+    margin-top: 4px;
+    color: var(--ink);
+}
+
 .hotel-meta-label {
     font-weight: 600;
     text-decoration: underline;
@@ -1221,6 +1243,35 @@ p, li, dd {
 
 .info-card > p {
     margin: 0 0 10px;
+}
+
+/* A posted update at the head of a card: the kicker labels it as news about
+ * the card's subject, and the gold highlight is the one already used
+ * elsewhere for something that can no longer be obtained. */
+.info-card > .card-status {
+    margin: 0 0 16px;
+    padding: 11px 15px;
+    border-left: 3px solid var(--highlight);
+    border-radius: var(--radius);
+    background: var(--highlight-tint);
+}
+
+.card-status-kicker {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.card-status p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--accent-deep);
 }
 
 .info-card > p:last-child {
@@ -1529,6 +1580,15 @@ p, li, dd {
     font-size: 0.94rem;
     color: var(--ink);
     cursor: pointer;
+}
+
+/* Groups a closed form's controls so a single `disabled` switches them all
+ * off; resets the default fieldset chrome so the layout is unchanged. */
+.form-disabled {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
 }
 
 /* A submission type that is no longer open: kept visible so the option is

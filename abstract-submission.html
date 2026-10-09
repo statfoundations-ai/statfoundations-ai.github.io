@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abstract Submission &mdash; Statistical Foundations of AI</title>
+    <title>Abstract Submission &mdash; Conference on Statistical Foundations of AI</title>
     <meta name="theme-color" content="#122848">
 
     <link rel="preload" href="fonts/inter-400-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -24,7 +24,7 @@
 <nav class="site-nav" aria-label="Primary">
     <div class="nav-inner">
         <a class="nav-brand" href="index.html">
-            <span class="brand-text">Statistical Foundations of AI</span>
+            <span class="brand-text">Conference on Statistical<br>Foundations of AI</span>
         </a>
         <button
             class="nav-toggle"
@@ -65,28 +65,24 @@
             <div class="prose">
                 <div class="info-card">
                     <p>
-                        Submit an abstract using the form below. The <strong>invited talk</strong> option is for <a class="inline-link" href="speakers.html">invited speakers</a>.
+                        <strong>We are no longer accepting abstract submissions.</strong>
                     </p>
                     <p>
-                        Please note that <a class="inline-link" href="registration.html">registration</a> is required prior to abstract submission. You will need your <strong>Registration ID (STOVA Confirmation Number)</strong>, which is provided upon registration.
+                        For questions about an abstract you have already submitted, email <a class="inline-link" href="mailto:events@pstat.ucsb.edu">events@pstat.ucsb.edu</a>.
                     </p>
                 </div>
-
-                <p class="notice-note">
-                    <strong>We are no longer accepting contributed poster submissions.</strong>
-                </p>
             </div>
 
             <div class="abstract-form-card">
                 <h3 class="subheading" style="margin-top: 0;">Abstract submission</h3>
                 <form id="abstract-submission-form" class="register-form" novalidate>
-                        <p class="form-hint" style="margin-bottom: 4px;">
-                            You can resubmit with the same Registration ID at any time; later submissions overwrite the previous one.
-                        </p>
+                    <!-- Disabled as a group: one disabled fieldset switches off every
+                         control inside it, so a closed form cannot be submitted. -->
+                    <fieldset class="form-disabled" disabled>
                         <fieldset class="form-checks">
                             <legend>Submission type <em>*</em></legend>
-                            <label><input type="radio" name="type" value="invited" required> Invited talk</label>
-                            <label class="is-closed"><input type="radio" name="type" value="poster" disabled> Contributed poster <span class="form-closed-flag">Closed</span></label>
+                            <label class="is-closed"><input type="radio" name="type" value="invited"> Invited talk <span class="form-closed-flag">Closed</span></label>
+                            <label class="is-closed"><input type="radio" name="type" value="poster"> Contributed poster <span class="form-closed-flag">Closed</span></label>
                         </fieldset>
 
                         <div class="form-grid">
@@ -152,9 +148,10 @@
                         </div>
 
                         <div class="form-actions">
-                            <button type="submit" class="button button-primary button-wide">Submit abstract</button>
+                            <button type="submit" class="button button-primary button-wide">Submissions closed</button>
                             <p class="form-status" id="abstract-status" role="status" aria-live="polite"></p>
                         </div>
+                    </fieldset>
                 </form>
             </div>
         </div>
@@ -182,7 +179,7 @@
     <div class="footer-bottom">
         <div class="footer-inner">
             <div>
-                <p class="footer-title">Statistical Foundations of AI</p>
+                <p class="footer-title">Conference on Statistical Foundations of AI</p>
                 <p class="footer-meta">November 13&ndash;14 &middot; Santa Barbara, CA</p>
             </div>
         </div>
