@@ -1815,7 +1815,12 @@ p, li, dd {
     background: var(--bg);
 }
 
+/* Wider than the site's content measure, and only here: at 1180px each day
+ * column leaves ~543px for text, which is a few pixels short of the opening
+ * remarks line and drops "UCSB" onto a second row. The extra width buys the
+ * ~60px that keeps it on one line. */
 .section-schedule > .section-wrap {
+    width: min(calc(100% - 40px), 1300px);
     padding-top: 2px;
 }
 
@@ -2236,6 +2241,34 @@ p, li, dd {
     border-left: 1px solid var(--line);
 }
 
+/* Both days run the same time slots, so slot N must sit at the same height in
+ * each column — otherwise a taller row on one day (the Nov 13 plenary, which
+ * also carries the opening remarks) pushes every later row out of step with
+ * its counterpart. Subgrid hands the day and its event list the parent's row
+ * tracks, so the two columns share one set of row heights. One track per
+ * slot on the longest day; the shorter day simply leaves its last tracks
+ * empty. Behind @supports so browsers without subgrid keep the plain
+ * column layout, and desktop-only since the days stack below 720px. */
+@supports (grid-template-rows: subgrid) {
+    @media (min-width: 721px) {
+        .schedule {
+            grid-template-rows: auto repeat(9, auto);
+        }
+
+        .schedule-day {
+            display: grid;
+            grid-row: 1 / -1;
+            grid-template-rows: subgrid;
+        }
+
+        .schedule-events {
+            display: grid;
+            grid-row: 2 / -1;
+            grid-template-rows: subgrid;
+        }
+    }
+}
+
 @media (max-width: 720px) {
     .schedule {
         grid-template-columns: 1fr;
@@ -2328,8 +2361,45 @@ p, li, dd {
 /* A slot that opens with a brief item before its main event: the lead-in is
  * a single muted line, and only the featured event carries the keynote tint
  * so the short item is not mistaken for a plenary. */
-.schedule-lead-in {
-    margin: 0 0 8px;
+/* Scoped through the row so it outranks `.schedule-event p`, whose
+ * `margin: 4px 0 0` would otherwise zero the gap below and leave the pill
+ * sitting on the band; the gap has to clear the pill's box, not the text. */
+.schedule-event > .schedule-lead-in {
+    margin: 0 0 10px;
+    font-size: 0.78rem;
+    line-height: 1.35;
+}
+
+/* Names the kind of item so the text after it can be just the speaker: the
+ * label carries no punctuation of its own. */
+.schedule-pill {
+    display: inline-block;
+    margin-right: 7px;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    /* Explicit, so the pill's height comes from this rule rather than from
+     * whatever line-height it inherits at each place it is used. */
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    vertical-align: 1px;
+    white-space: nowrap;
+}
+
+/* On the plain row background: the same chip blue as the day jump links. */
+.schedule-lead-in .schedule-pill {
+    background: #d6dfee;
+    color: var(--accent);
+}
+
+/* On the gold keynote band, where a gold chip would disappear. Covers both
+ * the band nested in a shared slot and a keynote row that is its own event. */
+.schedule-feature .schedule-pill,
+.schedule-event.is-keynote .schedule-pill {
+    background: var(--accent);
+    color: #fff;
 }
 
 /* Bleeds past the row's padding so the tint spans the full row width and its
@@ -2344,6 +2414,21 @@ p, li, dd {
 .schedule-event.is-keynote {
     background: var(--highlight-tint);
     border-left-color: var(--highlight);
+    display: flex;
+    flex-direction: column;
+}
+
+/* This row is stretched to the height of the facing day's slot, which carries
+ * an extra item, so its talk would sit at the top of a tall band. The time
+ * stays pinned up top so it still lines up with the other day's time; the
+ * paired auto margins centre the talk in the space that is left. Both
+ * selectors outrank the generic `.schedule-event h4/p` margins. */
+.schedule-event.is-keynote h4 {
+    margin-top: auto;
+}
+
+.schedule-event.is-keynote > p {
+    margin-bottom: auto;
 }
 
 .schedule-event.is-parallel {
