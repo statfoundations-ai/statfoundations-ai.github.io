@@ -2426,16 +2426,23 @@ p, li, dd {
     white-space: nowrap;
 }
 
-/* On the plain row background: the same chip blue as the day jump links. */
+/* The lead-in keeps the chip blue of the day jump links wherever it sits,
+ * including on a keynote row, where a thin outline keeps it from washing
+ * into the gold behind it. */
 .schedule-lead-in .schedule-pill {
     background: #d6dfee;
     color: var(--accent);
+    border: 1px solid var(--accent);
+    /* Padding gives back what the border takes, so the pill keeps the same
+     * outer size as its unbordered siblings (base is 2px 9px). */
+    padding: 1px 8px;
 }
 
 /* On the gold keynote band, where a gold chip would disappear. Covers both
- * the band nested in a shared slot and a keynote row that is its own event. */
+ * the band nested in a shared slot and a keynote row that is its own event.
+ * Excludes the lead-in's pill, which keeps the blue above. */
 .schedule-feature .schedule-pill,
-.schedule-event.is-keynote .schedule-pill {
+.schedule-event.is-keynote :not(.schedule-lead-in) > .schedule-pill {
     background: var(--accent);
     color: #fff;
 }
@@ -2465,7 +2472,9 @@ p, li, dd {
     margin-top: auto;
 }
 
-.schedule-event.is-keynote > p {
+/* Skips a lead-in line, which is not the trailing affiliation and keeps its
+ * own gap to the heading below it. */
+.schedule-event.is-keynote > p:not(.schedule-lead-in) {
     margin-bottom: auto;
 }
 
