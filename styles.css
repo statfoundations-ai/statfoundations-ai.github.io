@@ -817,6 +817,32 @@ p, li, dd {
     line-height: 1.45;
 }
 
+/* Two 280px cards, their 18px gap, and the page's 40px side margins need 618px. */
+@media (max-width: 617.98px) {
+    .invited-speakers-grid .committee-member {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas: "name website" "affiliation website";
+        column-gap: 16px;
+    }
+
+    .invited-speakers-grid .committee-member h4 {
+        grid-area: name;
+    }
+
+    .invited-speakers-grid .committee-member p {
+        grid-area: affiliation;
+    }
+
+    .invited-speakers-grid .committee-link {
+        grid-area: website;
+        align-self: center;
+        margin-top: 0;
+        min-height: 44px;
+        white-space: nowrap;
+    }
+}
+
 .committee-member .committee-role-note {
     margin-top: 4px;
     font-size: 0.82rem;
@@ -2598,6 +2624,7 @@ p, li, dd {
     .speaker-row .speaker-photo {
         width: 100%;
         aspect-ratio: 4 / 3;
+        max-height: 240px;
         border-right: none;
         border-bottom: 1px solid var(--line);
     }
@@ -2612,6 +2639,54 @@ p, li, dd {
 
     .speaker-row .speaker-talk {
         font-size: 0.92rem;
+    }
+}
+
+@media (max-width: 519.98px) {
+    .speaker-row .speaker-photo {
+        aspect-ratio: auto;
+        max-height: none;
+    }
+
+    .speaker-row .speaker-photo img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (min-width: 520px) and (max-width: 600px) {
+    .speaker-row-plenary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: stretch;
+    }
+
+    .speaker-row-plenary .speaker-card:not([open]) > summary {
+        height: 100%;
+    }
+
+    .speaker-row-plenary .speaker-body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .speaker-row-plenary .speaker-talk {
+        flex: 1;
+    }
+
+    .speaker-row-plenary .speaker-website {
+        align-self: flex-start;
+    }
+
+    .speaker-row:not(.speaker-row-plenary) .speaker-card > summary {
+        flex-direction: row;
+    }
+
+    .speaker-row:not(.speaker-row-plenary) .speaker-photo {
+        width: 220px;
+        aspect-ratio: auto;
+        max-height: none;
+        border-right: 1px solid var(--line);
+        border-bottom: none;
     }
 }
 
