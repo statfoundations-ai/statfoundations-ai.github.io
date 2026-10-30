@@ -64,8 +64,9 @@
         <div class="section-wrap">
             <nav class="page-subnav" aria-label="Sections on this page">
                 <a href="#venue">Venue</a>
-                <a href="#accommodation">Accommodation</a>
                 <a href="#getting-here">Getting here</a>
+                <a href="#accommodation">Accommodation</a>
+                <a href="#dining">Restaurant Guide</a>
                 <a href="#around">Local Attractions</a>
             </nav>
             <div class="venue-grid">
@@ -110,6 +111,23 @@
                     </div>
                 </div>
                 <div class="prose prose-rest">
+                    <h3 class="subheading" id="getting-here">Getting here</h3>
+                    <p>
+                        UC Santa Barbara is in Goleta, about 10 miles west of downtown Santa Barbara. The closest airport is <strong>Santa Barbara Airport (SBA)</strong>; <strong>Los Angeles International (LAX)</strong> and <strong>Hollywood Burbank (BUR)</strong> are common alternatives.
+                    </p>
+                    <ul>
+                        <li><strong>From SBA:</strong> short trip to campus by taxi or rideshare.</li>
+                        <li><strong>From LAX:</strong> the Santa Barbara Airbus express bus and the Amtrak Pacific Surfliner train both connect to Goleta or Santa Barbara. Rideshare and rental cars are also options.</li>
+                        <li><strong>From BUR:</strong> rideshare, rental car, or transfer to Amtrak.</li>
+                    </ul>
+
+                    <h4 style="margin-top: 18px; font-size: 1rem;">Local transit</h4>
+                    <p>
+                        <a class="inline-link" href="https://sbmtd.gov/" target="_blank" rel="noopener">Santa Barbara MTD</a> serves the UCSB campus. Line <strong>24x</strong> is an express from downtown Santa Barbara, and Line <strong>11</strong> also stops near the UCen.
+                    </p>
+                </div>
+
+                <div class="prose prose-wide">
                     <h3 class="subheading" id="accommodation">Accommodation</h3>
                     <p>
                         The hotels listed below have set aside room blocks at conference rates. To receive the rate, please book through the linked page or quote the listed code when booking directly. Reservations made through any other channel will be charged the standard rate. Unless otherwise noted, reservations should be made by <strong>October 12, 2026</strong>.
@@ -200,20 +218,19 @@
                         </div>
                     </div>
 
-                    <h3 class="subheading" id="getting-here">Getting here</h3>
-                    <p>
-                        UC Santa Barbara is in Goleta, about 10 miles west of downtown Santa Barbara. The closest airport is <strong>Santa Barbara Airport (SBA)</strong>; <strong>Los Angeles International (LAX)</strong> and <strong>Hollywood Burbank (BUR)</strong> are common alternatives.
-                    </p>
-                    <ul>
-                        <li><strong>From SBA:</strong> short trip to campus by taxi or rideshare.</li>
-                        <li><strong>From LAX:</strong> the Santa Barbara Airbus express bus and the Amtrak Pacific Surfliner train both connect to Goleta or Santa Barbara. Rideshare and rental cars are also options.</li>
-                        <li><strong>From BUR:</strong> rideshare, rental car, or transfer to Amtrak.</li>
-                    </ul>
+                    <h3 class="subheading" id="dining">Restaurant Guide</h3>
+                    <div class="pdf-actions">
+                        <a class="button button-primary" href="CSFAI_Local_Restaurant_Guide.pdf" target="_blank" rel="noopener">Open PDF &rarr;</a>
+                    </div>
 
-                    <h4 style="margin-top: 18px; font-size: 1rem;">Local transit</h4>
-                    <p>
-                        <a class="inline-link" href="https://sbmtd.gov/" target="_blank" rel="noopener">Santa Barbara MTD</a> serves the UCSB campus. Line <strong>24x</strong> is an express from downtown Santa Barbara, and Line <strong>11</strong> also stops near the UCen.
-                    </p>
+                    <div class="pdf-container">
+                        <object data="CSFAI_Local_Restaurant_Guide.pdf" type="application/pdf" class="pdf-frame" aria-label="Restaurant guide PDF">
+                            <p style="padding: 24px;">
+                                Your browser can&rsquo;t display the embedded PDF.
+                                <a class="inline-link" href="CSFAI_Local_Restaurant_Guide.pdf" target="_blank" rel="noopener">Open the restaurant guide</a> instead.
+                            </p>
+                        </object>
+                    </div>
 
                     <h3 class="subheading" id="around">Local Attractions</h3>
 
@@ -231,6 +248,7 @@
                     <p>
                         Santa Barbara is world-renowned for its distinct microclimates producing exceptional Pinot Noir, Chardonnay, and Syrah. For an easy post-conference activity, visitors can walk the <a class="inline-link" href="https://urbanwinetrailsb.com/wineries/" target="_blank" rel="noopener">Urban Wine Trail</a>, which connects dozens of boutique tasting rooms across downtown and the trendy Funk Zone district. To explore the scenic vineyards of the nearby Santa Ynez Valley, look into fully hosted day trips and shuttle services provided by <a class="inline-link" href="https://winetours-santabarbara.com/" target="_blank" rel="noopener">Santa Barbara Wine Country Tours</a> or <a class="inline-link" href="https://winetourssantaynez.com/" target="_blank" rel="noopener">Stagecoach Co. Wine Tours</a>.
                     </p>
+
                 </div>
             </div>
         </div>
@@ -280,6 +298,35 @@
             navToggle.setAttribute("aria-expanded", "false");
         });
     });
+
+    /* The subnav parks directly under the main nav, whose height changes with
+     * viewport width (padding either side of the 1010px breakpoint, the brand
+     * wrapping, the hamburger, and the menu expanding when opened). Measuring
+     * it keeps the two flush at every size; the CSS carries a fallback for a
+     * no-JS load. */
+    const siteNav = document.querySelector(".site-nav");
+    const pageSubnav = document.querySelector(".page-subnav");
+
+    if (siteNav && pageSubnav) {
+        const syncNavHeight = () => {
+            document.documentElement.style.setProperty(
+                "--nav-h",
+                siteNav.getBoundingClientRect().height + "px"
+            );
+        };
+
+        syncNavHeight();
+
+        if (window.ResizeObserver) {
+            new ResizeObserver(syncNavHeight).observe(siteNav);
+        } else {
+            window.addEventListener("resize", syncNavHeight);
+        }
+        // Webfonts can reflow the brand after first paint.
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(syncNavHeight);
+        }
+    }
 </script>
 </body>
 </html>

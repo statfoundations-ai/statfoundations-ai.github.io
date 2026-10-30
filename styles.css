@@ -1079,10 +1079,18 @@ p, li, dd {
 
 .page-subnav {
     position: sticky;
-    top: 68px;
+    /* --nav-h is measured from the live nav on pages that carry a subnav; the
+     * nav's height changes with viewport (padding at the 1010px breakpoint,
+     * brand wrap, the hamburger, and the menu expanding). A fixed offset is
+     * right at only one width and lets the bar slide under the nav or float
+     * below it at the others. The fallback covers a no-JS load. */
+    top: var(--nav-h, 68px);
     z-index: 90;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    /* Columns follow the number of links, so a page can add or drop a
+     * section without the row leaving a gap or wrapping one pill alone. */
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
     grid-auto-rows: 1fr;
     gap: 14px;
     margin: -20px 0 22px;
@@ -1091,14 +1099,9 @@ p, li, dd {
     border-bottom: 1px solid var(--line-soft);
 }
 
-/* Two-link variant: the base grid reserves four columns, which would leave a
- * pair of links hugging the left half of the row. */
-.page-subnav-pair {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
 @media (max-width: 640px) {
     .page-subnav {
+        grid-auto-flow: row;
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
@@ -1126,9 +1129,12 @@ p, li, dd {
 
 /* Hotel grid (local info) */
 
+/* Column count follows the measure rather than being fixed at two: the block
+ * now runs the full page width, where two cards would each be ~580px of
+ * mostly empty space. */
 .hotel-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-auto-rows: 1fr;
     gap: 16px;
     margin: 14px 0 0;
@@ -2825,9 +2831,20 @@ p, li, dd {
     grid-row: 1 / span 2;
 }
 
+/* Sits beside the map card, which spans both rows of the first column. */
 .venue-grid .prose-rest {
     grid-column: 1;
     grid-row: 2;
+}
+
+/* Everything past the map card: once the sidebar's two rows are behind us
+ * there is no second column to leave room for, so this spans the full
+ * measure. Keeps the hotel cards and the embedded guide from being squeezed
+ * into half the page. */
+.venue-grid .prose-wide {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin-top: 8px;
 }
 
 @media (max-width: 1100px) {
@@ -2842,9 +2859,14 @@ p, li, dd {
 
     .venue-grid .prose-venue,
     .venue-grid > .venue-side,
-    .venue-grid .prose-rest {
+    .venue-grid .prose-rest,
+    .venue-grid .prose-wide {
         grid-column: 1;
         grid-row: auto;
+    }
+
+    .venue-grid .prose-wide {
+        margin-top: 0;
     }
 }
 

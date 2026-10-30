@@ -65,7 +65,7 @@
         <div class="section-wrap">
 
 
-            <nav class="page-subnav page-subnav-pair" aria-label="Sections on this page">
+            <nav class="page-subnav" aria-label="Sections on this page">
                 <a href="#program">Program</a>
                 <a href="#abstract-booklet">Abstract Booklet</a>
             </nav>
@@ -142,6 +142,35 @@
             navToggle.setAttribute("aria-expanded", "false");
         });
     });
+
+    /* The subnav parks directly under the main nav, whose height changes with
+     * viewport width (padding either side of the 1010px breakpoint, the brand
+     * wrapping, the hamburger, and the menu expanding when opened). Measuring
+     * it keeps the two flush at every size; the CSS carries a fallback for a
+     * no-JS load. */
+    const siteNav = document.querySelector(".site-nav");
+    const pageSubnav = document.querySelector(".page-subnav");
+
+    if (siteNav && pageSubnav) {
+        const syncNavHeight = () => {
+            document.documentElement.style.setProperty(
+                "--nav-h",
+                siteNav.getBoundingClientRect().height + "px"
+            );
+        };
+
+        syncNavHeight();
+
+        if (window.ResizeObserver) {
+            new ResizeObserver(syncNavHeight).observe(siteNav);
+        } else {
+            window.addEventListener("resize", syncNavHeight);
+        }
+        // Webfonts can reflow the brand after first paint.
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(syncNavHeight);
+        }
+    }
 </script>
 </body>
 </html>
