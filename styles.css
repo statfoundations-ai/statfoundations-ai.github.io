@@ -2607,6 +2607,19 @@ p, li, dd {
     }
 }
 
+@media (max-width: 480px) {
+    .speaker-row .speaker-card > summary {
+        flex-direction: column;
+    }
+
+    .speaker-row .speaker-photo {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+    }
+}
+
 .speaker-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
