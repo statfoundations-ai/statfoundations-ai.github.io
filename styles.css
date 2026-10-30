@@ -146,6 +146,18 @@ html {
     @view-transition {
         navigation: none;
     }
+
+    /* The menu still opens and closes, it just arrives rather than slides.
+     * Scoped through .nav-inner so it outranks the animated rules, which sit
+     * later in the file at the 1010px breakpoint. The delay is zeroed as well
+     * as the duration: the closed state defers `visibility` until the
+     * collapse finishes, which would otherwise leave the panel on screen. */
+    .nav-inner .nav-list,
+    .nav-inner .nav-list.active {
+        transition-duration: 0s;
+        transition-delay: 0s;
+        transform: none;
+    }
 }
 
 body {
@@ -267,6 +279,11 @@ p, li, dd {
     bottom: 28px;
     transform: translateX(-50%);
     margin: 0;
+    /* The close button sits over the open panel's bottom padding. The panel
+     * carries a transform for its slide, which paints it in the positioned
+     * layer alongside this button, and it comes later in the DOM — so
+     * without this the panel's white background covers the X. */
+    z-index: 2;
 }
 
 .brand-mark {
@@ -3102,28 +3119,74 @@ p, li, dd {
     .nav-inner {
         flex-wrap: wrap;
         padding: 14px 0;
+        /* The panel is always present now, so it always forms a second flex
+         * line. The inherited gap would space that line out even while the
+         * menu is collapsed and 0px tall; the open panel supplies its own
+         * top margin instead. */
+        row-gap: 0;
     }
 
     .nav-toggle {
         display: inline-flex;
     }
 
+    /* Collapsed rather than display:none, so opening and closing can be
+     * animated — `display` itself cannot be transitioned. The panel is
+     * border-box, so max-height: 0 flattens padding and border with it;
+     * visibility keeps the links out of the tab order while closed, and is
+     * delayed on the way out so it only applies once the panel has gone. */
     .nav-list {
-        display: none;
+        display: flex;
+        /* Overrides the desktop `flex: 1`, whose 0% basis would let the panel
+         * share the nav's first line: it would then soak up the free space
+         * that margin-left:auto needs to hold the toggle at the right edge,
+         * and open beside the brand instead of as a row of its own. */
+        flex: 0 0 100%;
         width: 100%;
-        margin: 12px 0 4px;
-        padding: 8px;
+        max-height: 0;
+        margin: 0;
+        padding: 0 8px;
         flex-direction: column;
         align-items: stretch;
         gap: 2px;
+        opacity: 0;
+        visibility: hidden;
+        overflow: hidden;
+        transform: translateY(-6px);
         background: #fff;
-        border: 1px solid var(--line);
+        border: 1px solid transparent;
         border-radius: var(--radius-lg);
-        box-shadow: 0 14px 32px rgba(17, 28, 51, 0.08);
+        box-shadow: none;
+        transition:
+            max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+            margin 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+            padding 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+            opacity 0.18s ease,
+            transform 0.26s ease,
+            border-color 0.2s ease,
+            visibility 0s linear 0.32s;
     }
 
     .nav-list.active {
-        display: flex;
+        max-height: 80vh;
+        margin: 12px 0 4px;
+        padding: 8px;
+        opacity: 1;
+        visibility: visible;
+        overflow-y: auto;
+        transform: translateY(0);
+        border-color: var(--line);
+        box-shadow: 0 14px 32px rgba(17, 28, 51, 0.08);
+        /* Fade trails the expansion slightly on the way in, and visibility
+         * applies immediately rather than after the collapse delay. */
+        transition:
+            max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+            margin 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+            padding 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+            opacity 0.22s ease 0.04s,
+            transform 0.26s ease,
+            border-color 0.2s ease,
+            visibility 0s;
     }
 
     .nav-list li {
