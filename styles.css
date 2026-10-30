@@ -2590,8 +2590,16 @@ p, li, dd {
 }
 
 @media (max-width: 600px) {
+    /* Stack before the portrait would narrow in the side-by-side layout. */
+    .speaker-row .speaker-card > summary {
+        flex-direction: column;
+    }
+
     .speaker-row .speaker-photo {
-        width: 130px;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        border-right: none;
+        border-bottom: 1px solid var(--line);
     }
 
     .speaker-row .speaker-body {
@@ -2604,19 +2612,6 @@ p, li, dd {
 
     .speaker-row .speaker-talk {
         font-size: 0.92rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .speaker-row .speaker-card > summary {
-        flex-direction: column;
-    }
-
-    .speaker-row .speaker-photo {
-        width: 100%;
-        aspect-ratio: 4 / 3;
-        border-right: none;
-        border-bottom: 1px solid var(--line);
     }
 }
 
