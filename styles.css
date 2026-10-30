@@ -1100,9 +1100,39 @@ p, li, dd {
 }
 
 @media (max-width: 640px) {
+    /* Wraps to a set number of equal columns, and centres each row, so a
+     * leftover link sits balanced beneath the row above at the same width as
+     * its neighbours rather than stranded in column one. Width and gap stay
+     * proportional to the viewport; only the column count steps. */
     .page-subnav {
-        grid-auto-flow: row;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        --subnav-cols: 3;
+        --subnav-gap: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--subnav-gap);
+    }
+
+    .page-subnav a {
+        --subnav-col-w: calc(
+            (100% - (var(--subnav-cols) - 1) * var(--subnav-gap)) / var(--subnav-cols)
+        );
+        /* Basis and cap are the same value, so pills fill the row evenly and
+         * a short last row keeps that width instead of stretching. */
+        flex: 1 1 var(--subnav-col-w);
+        max-width: var(--subnav-col-w);
+        /* Lets a long label wrap inside its pill rather than the automatic
+         * minimum size pushing the pill past the cap. */
+        min-width: 0;
+    }
+}
+
+/* Below this, a third of the row leaves under ~100px of text, and a
+ * single-word label like "Accommodation" has nowhere to wrap, so it would
+ * spill past its pill. Two columns keep every label on one line. */
+@media (max-width: 520px) {
+    .page-subnav {
+        --subnav-cols: 2;
     }
 }
 
