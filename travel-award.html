@@ -45,7 +45,7 @@
             <li><a href="speakers.html">Speakers</a></li>
             <li><a href="committee.html">Committee</a></li>
             <li><a href="local-info.html">Local Info</a></li>
-            <li><a class="is-active" href="travel-award.html">Travel Award</a></li>
+            <li><a class="is-active" aria-current="page" href="travel-award.html">Travel Award</a></li>
             <li><a href="abstract-submission.html">Abstracts</a></li>
             <li><a class="nav-cta" href="registration.html">Register</a></li>
         </ul>
@@ -157,21 +157,6 @@
     </div>
 </footer>
 
-<script>
-    const navToggle = document.getElementById("nav-toggle");
-    const navList = document.getElementById("nav-list");
-
-    navToggle.addEventListener("click", () => {
-        const isOpen = navList.classList.toggle("active");
-        navToggle.setAttribute("aria-expanded", String(isOpen));
-    });
-
-    navList.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-            navList.classList.remove("active");
-            navToggle.setAttribute("aria-expanded", "false");
-        });
-    });
-</script>
+<script src="navigation.js" defer></script>
 </body>
 </html>

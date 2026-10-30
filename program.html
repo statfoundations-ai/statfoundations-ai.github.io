@@ -40,7 +40,7 @@
         </button>
         <ul class="nav-list" id="nav-list">
             <li><a href="index.html">Home</a></li>
-            <li><a class="is-active" href="program.html">Program</a></li>
+            <li><a class="is-active" aria-current="page" href="program.html">Program</a></li>
             <li><a href="schedule.html">Schedule</a></li>
             <li><a href="speakers.html">Speakers</a></li>
             <li><a href="committee.html">Committee</a></li>
@@ -127,50 +127,6 @@
     </div>
 </footer>
 
-<script>
-    const navToggle = document.getElementById("nav-toggle");
-    const navList = document.getElementById("nav-list");
-
-    navToggle.addEventListener("click", () => {
-        const isOpen = navList.classList.toggle("active");
-        navToggle.setAttribute("aria-expanded", String(isOpen));
-    });
-
-    navList.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-            navList.classList.remove("active");
-            navToggle.setAttribute("aria-expanded", "false");
-        });
-    });
-
-    /* The subnav parks directly under the main nav, whose height changes with
-     * viewport width (padding either side of the 1010px breakpoint, the brand
-     * wrapping, the hamburger, and the menu expanding when opened). Measuring
-     * it keeps the two flush at every size; the CSS carries a fallback for a
-     * no-JS load. */
-    const siteNav = document.querySelector(".site-nav");
-    const pageSubnav = document.querySelector(".page-subnav");
-
-    if (siteNav && pageSubnav) {
-        const syncNavHeight = () => {
-            document.documentElement.style.setProperty(
-                "--nav-h",
-                siteNav.getBoundingClientRect().height + "px"
-            );
-        };
-
-        syncNavHeight();
-
-        if (window.ResizeObserver) {
-            new ResizeObserver(syncNavHeight).observe(siteNav);
-        } else {
-            window.addEventListener("resize", syncNavHeight);
-        }
-        // Webfonts can reflow the brand after first paint.
-        if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(syncNavHeight);
-        }
-    }
-</script>
+<script src="navigation.js" defer></script>
 </body>
 </html>

@@ -46,7 +46,7 @@
             <li><a href="committee.html">Committee</a></li>
             <li><a href="local-info.html">Local Info</a></li>
             <li><a href="travel-award.html">Travel Award</a></li>
-            <li><a class="is-active" href="abstract-submission.html">Abstracts</a></li>
+            <li><a class="is-active" aria-current="page" href="abstract-submission.html">Abstracts</a></li>
             <li><a class="nav-cta" href="registration.html">Register</a></li>
         </ul>
     </div>
@@ -186,22 +186,8 @@
     </div>
 </footer>
 
+<script src="navigation.js" defer></script>
 <script>
-    const navToggle = document.getElementById("nav-toggle");
-    const navList = document.getElementById("nav-list");
-
-    navToggle.addEventListener("click", () => {
-        const isOpen = navList.classList.toggle("active");
-        navToggle.setAttribute("aria-expanded", String(isOpen));
-    });
-
-    navList.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-            navList.classList.remove("active");
-            navToggle.setAttribute("aria-expanded", "false");
-        });
-    });
-
     /*
      * Abstract submission form -> Google Sheet (via Apps Script)
      * ----------------------------------------------------------

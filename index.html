@@ -39,7 +39,7 @@
             <span class="nav-toggle-bar"></span>
         </button>
         <ul class="nav-list" id="nav-list">
-            <li><a class="is-active" href="index.html">Home</a></li>
+            <li><a class="is-active" aria-current="page" href="index.html">Home</a></li>
             <li><a href="program.html">Program</a></li>
             <li><a href="schedule.html">Schedule</a></li>
             <li><a href="speakers.html">Speakers</a></li>
@@ -175,21 +175,6 @@
     </div>
 </footer>
 
-<script>
-    const navToggle = document.getElementById("nav-toggle");
-    const navList = document.getElementById("nav-list");
-
-    navToggle.addEventListener("click", () => {
-        const isOpen = navList.classList.toggle("active");
-        navToggle.setAttribute("aria-expanded", String(isOpen));
-    });
-
-    navList.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-            navList.classList.remove("active");
-            navToggle.setAttribute("aria-expanded", "false");
-        });
-    });
-</script>
+<script src="navigation.js" defer></script>
 </body>
 </html>

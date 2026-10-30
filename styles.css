@@ -113,7 +113,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 150px;
+    scroll-padding-top: calc(var(--nav-h, 73px) + var(--subnav-h, 0px) + 16px);
     /* Painted before the next document renders, so navigation never flashes white */
     background: var(--bg);
 }
@@ -258,32 +258,6 @@ p, li, dd {
  * max-width: a ch-based cap would re-wrap the lines it is meant to hold. */
 .brand-text {
     line-height: 1.2;
-}
-
-.nav-inner:has(.nav-list.active) {
-    position: relative;
-}
-
-.nav-inner:has(.nav-list.active) .nav-brand {
-    display: none;
-}
-
-.nav-inner:has(.nav-list.active) .nav-list {
-    padding-bottom: 56px;
-}
-
-.nav-inner:has(.nav-list.active) .nav-toggle {
-    position: absolute;
-    order: initial;
-    left: 50%;
-    bottom: 28px;
-    transform: translateX(-50%);
-    margin: 0;
-    /* The close button sits over the open panel's bottom padding. The panel
-     * carries a transform for its slide, which paints it in the positioned
-     * layer alongside this button, and it comes later in the DOM — so
-     * without this the panel's white background covers the X. */
-    z-index: 2;
 }
 
 .brand-mark {
@@ -1098,10 +1072,10 @@ p, li, dd {
     position: sticky;
     /* --nav-h is measured from the live nav on pages that carry a subnav; the
      * nav's height changes with viewport (padding at the 1010px breakpoint,
-     * brand wrap, the hamburger, and the menu expanding). A fixed offset is
+     * brand wrap and the hamburger). A fixed offset is
      * right at only one width and lets the bar slide under the nav or float
      * below it at the others. The fallback covers a no-JS load. */
-    top: var(--nav-h, 68px);
+    top: var(--nav-h, 73px);
     z-index: 90;
     display: grid;
     /* Columns follow the number of links, so a page can add or drop a
@@ -1114,43 +1088,6 @@ p, li, dd {
     padding: 14px 0;
     background: var(--bg);
     border-bottom: 1px solid var(--line-soft);
-}
-
-@media (max-width: 640px) {
-    /* Wraps to a set number of equal columns, and centres each row, so a
-     * leftover link sits balanced beneath the row above at the same width as
-     * its neighbours rather than stranded in column one. Width and gap stay
-     * proportional to the viewport; only the column count steps. */
-    .page-subnav {
-        --subnav-cols: 3;
-        --subnav-gap: 12px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: var(--subnav-gap);
-    }
-
-    .page-subnav a {
-        --subnav-col-w: calc(
-            (100% - (var(--subnav-cols) - 1) * var(--subnav-gap)) / var(--subnav-cols)
-        );
-        /* Basis and cap are the same value, so pills fill the row evenly and
-         * a short last row keeps that width instead of stretching. */
-        flex: 1 1 var(--subnav-col-w);
-        max-width: var(--subnav-col-w);
-        /* Lets a long label wrap inside its pill rather than the automatic
-         * minimum size pushing the pill past the cap. */
-        min-width: 0;
-    }
-}
-
-/* Below this, a third of the row leaves under ~100px of text, and a
- * single-word label like "Accommodation" has nowhere to wrap, so it would
- * spill past its pill. Two columns keep every label on one line. */
-@media (max-width: 520px) {
-    .page-subnav {
-        --subnav-cols: 2;
-    }
 }
 
 .page-subnav a {
@@ -1169,7 +1106,8 @@ p, li, dd {
 }
 
 .page-subnav a:hover,
-.page-subnav a:focus-visible {
+.page-subnav a:focus-visible,
+.page-subnav a[aria-current="location"] {
     background: var(--accent);
     color: #fff;
 }
@@ -2280,7 +2218,7 @@ p, li, dd {
 @media (max-width: 720px) {
     .schedule-jump {
         position: sticky;
-        top: 68px;
+        top: var(--nav-h, 73px);
         z-index: 90;
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2306,7 +2244,8 @@ p, li, dd {
     }
 
     .schedule-jump a:hover,
-    .schedule-jump a:focus-visible {
+    .schedule-jump a:focus-visible,
+    .schedule-jump a[aria-current="location"] {
         background: var(--accent);
         color: #fff;
     }
@@ -2620,6 +2559,7 @@ p, li, dd {
 
 .speaker-row {
     display: grid;
+    /* Keep the portrait-and-text cards wide enough at tablet sizes too. */
     grid-template-columns: 1fr;
     gap: 24px;
     max-width: 860px;
@@ -3098,14 +3038,6 @@ p, li, dd {
         gap: 36px;
     }
 
-    .speaker-row {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .speaker-row:has(> .speaker-card:only-child) {
-        grid-template-columns: 1fr;
-    }
-
     .hero-meta-divider {
         display: none;
     }
@@ -3117,31 +3049,19 @@ p, li, dd {
 
 @media (max-width: 1010px) {
     .nav-inner {
-        flex-wrap: wrap;
+        position: relative;
         padding: 14px 0;
-        /* The panel is always present now, so it always forms a second flex
-         * line. The inherited gap would space that line out even while the
-         * menu is collapsed and 0px tall; the open panel supplies its own
-         * top margin instead. */
-        row-gap: 0;
+        gap: 12px;
     }
 
-    .nav-toggle {
-        display: inline-flex;
-    }
+    .nav-brand { flex: 1; }
+    .nav-toggle { display: inline-flex; flex-shrink: 0; }
 
-    /* Collapsed rather than display:none, so opening and closing can be
-     * animated — `display` itself cannot be transitioned. The panel is
-     * border-box, so max-height: 0 flattens padding and border with it;
-     * visibility keeps the links out of the tab order while closed, and is
-     * delayed on the way out so it only applies once the panel has gone. */
+    /* Overlay the page so the header, toggle, and scroll position stay put. */
     .nav-list {
-        display: flex;
-        /* Overrides the desktop `flex: 1`, whose 0% basis would let the panel
-         * share the nav's first line: it would then soak up the free space
-         * that margin-left:auto needs to hold the toggle at the right edge,
-         * and open beside the brand instead of as a row of its own. */
-        flex: 0 0 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
         width: 100%;
         max-height: 0;
         margin: 0;
@@ -3151,79 +3071,55 @@ p, li, dd {
         gap: 2px;
         opacity: 0;
         visibility: hidden;
-        overflow: hidden;
-        transform: translateY(-6px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
         background: #fff;
         border: 1px solid transparent;
         border-radius: var(--radius-lg);
-        box-shadow: none;
-        transition:
-            max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1),
-            margin 0.32s cubic-bezier(0.4, 0, 0.2, 1),
-            padding 0.32s cubic-bezier(0.4, 0, 0.2, 1),
-            opacity 0.18s ease,
-            transform 0.26s ease,
-            border-color 0.2s ease,
-            visibility 0s linear 0.32s;
+        transform: translateY(-6px);
+        transition: opacity 0.18s ease, transform 0.18s ease,
+                    visibility 0s linear 0.18s;
     }
 
     .nav-list.active {
-        max-height: 80vh;
-        margin: 12px 0 4px;
+        max-height: calc(100vh - var(--nav-h, 73px) - 16px);
+        max-height: calc(100dvh - var(--nav-h, 73px) - 16px);
+        margin-top: 8px;
         padding: 8px;
         opacity: 1;
         visibility: visible;
-        overflow-y: auto;
-        transform: translateY(0);
+        transform: none;
         border-color: var(--line);
-        box-shadow: 0 14px 32px rgba(17, 28, 51, 0.08);
-        /* Fade trails the expansion slightly on the way in, and visibility
-         * applies immediately rather than after the collapse delay. */
-        transition:
-            max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1),
-            margin 0.32s cubic-bezier(0.4, 0, 0.2, 1),
-            padding 0.32s cubic-bezier(0.4, 0, 0.2, 1),
-            opacity 0.22s ease 0.04s,
-            transform 0.26s ease,
-            border-color 0.2s ease,
-            visibility 0s;
+        box-shadow: 0 14px 32px rgba(17, 28, 51, 0.12);
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s;
     }
 
-    .nav-list li {
-        width: 100%;
-    }
+    .nav-list li { width: 100%; }
 
     .nav-list a {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
+        min-height: 44px;
         padding: 13px 16px;
         font-size: 0.98rem;
-        font-weight: 500;
         color: var(--ink);
-        text-align: center;
         border-radius: var(--radius);
     }
 
     .nav-list a:hover,
-    .nav-list a:focus-visible {
-        background: rgba(27, 29, 30, 0.05);
-    }
+    .nav-list a:focus-visible { background: rgba(27, 29, 30, 0.05); }
 
     .nav-list .nav-cta {
-        justify-content: center;
         margin: 8px 0 2px;
         padding: 14px 16px;
+        color: #fff;
         font-weight: 600;
-        letter-spacing: 0.02em;
     }
 
     .nav-list .nav-cta:hover,
-    .nav-list .nav-cta:focus-visible {
-        background: var(--accent-bright);
-        color: #fff;
-    }
+    .nav-list .nav-cta:focus-visible { background: var(--accent-bright); }
 }
 
 @media (max-width: 720px) {
@@ -3314,10 +3210,6 @@ p, li, dd {
         height: 14px;
     }
 
-    .speaker-row {
-        grid-template-columns: 1fr;
-    }
-
     .hero-meta {
         flex-direction: column;
         align-items: stretch;
@@ -3366,4 +3258,38 @@ p, li, dd {
         width: 100%;
     }
 
+}
+
+/* Section links stay in one row; the scrollbar and hint reveal overflow. */
+.subnav-hint { display: none; }
+.page-subnav a { min-height: 44px; }
+
+@media (max-width: 640px) {
+    .page-subnav { gap: 8px; padding: 10px 0; }
+    .page-subnav-scroll {
+        display: flex;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scrollbar-width: thin;
+        scrollbar-color: var(--accent-bright) var(--accent-tint);
+    }
+    .page-subnav-scroll a { flex: 0 0 auto; white-space: nowrap; }
+    .subnav-hint {
+        display: block;
+        margin: -12px 0 4px;
+        font-size: 0.78rem;
+        color: var(--ink-soft);
+    }
+    .subnav-hint + .page-subnav { margin-top: 0; }
+    .page-subnav:not(.page-subnav-scroll) a { padding: 8px 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+    }
 }
