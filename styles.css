@@ -2583,6 +2583,105 @@ p, li, dd {
 
 /* --- Speakers --- */
 
+.subheading:has(+ .speaker-alphabet-wrap) {
+    margin-bottom: 8px;
+}
+
+.speaker-alphabet-wrap {
+    position: sticky;
+    top: var(--nav-h, 73px);
+    z-index: 90;
+    margin-bottom: 12px;
+    background: var(--bg);
+}
+
+.speaker-alphabet {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 4px 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+    background: var(--bg);
+}
+
+.speaker-alphabet a,
+.speaker-alphabet span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 36px;
+    min-height: 44px;
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+.speaker-alphabet a {
+    color: var(--ink-soft);
+}
+
+.speaker-alphabet a:hover,
+.speaker-alphabet a:focus-visible {
+    color: var(--accent-bright);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.speaker-alphabet a:focus-visible {
+    outline-offset: -3px;
+}
+
+.speaker-alphabet span {
+    color: var(--ink-muted);
+    opacity: 0.5;
+}
+
+.speaker-alphabet-back,
+.speaker-alphabet-more {
+    position: absolute;
+    top: 4px;
+    display: inline-flex;
+    align-items: center;
+    width: 40px;
+    height: 44px;
+    border: 0;
+    color: var(--ink-soft);
+    font: inherit;
+    cursor: pointer;
+}
+
+.speaker-alphabet-back {
+    left: 0;
+    justify-content: flex-start;
+    padding: 0 0 0 6px;
+    background: linear-gradient(to left, transparent, var(--bg) 40%);
+}
+
+.speaker-alphabet-more {
+    right: 0;
+    justify-content: flex-end;
+    padding: 0 6px 0 0;
+    background: linear-gradient(to right, transparent, var(--bg) 40%);
+}
+
+.speaker-alphabet-back[hidden],
+.speaker-alphabet-more[hidden] { display: none; }
+
+.speaker-alphabet-back:hover,
+.speaker-alphabet-more:hover { color: var(--accent-bright); }
+
+.speaker-alphabet-back:focus-visible,
+.speaker-alphabet-more:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: -3px;
+}
+
+.invited-speakers-grid .committee-member:target {
+    outline: none;
+}
+
 .speaker-row {
     display: grid;
     /* Keep the portrait-and-text cards wide enough at tablet sizes too. */

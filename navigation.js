@@ -9,6 +9,10 @@
     const mobile = window.matchMedia('(max-width: 1010px)');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const sectionNav = document.querySelector('.page-subnav, .schedule-jump');
+    const alphabet = document.querySelector('.speaker-alphabet');
+    const alphabetBack = document.querySelector('.speaker-alphabet-back');
+    const alphabetMore = document.querySelector('.speaker-alphabet-more');
+    const stickyNav = sectionNav || document.querySelector('.speaker-alphabet-wrap');
     const sectionLinks = sectionNav ? [...sectionNav.querySelectorAll('a[href^="#"]')] : [];
     const sections = sectionLinks.map(link => document.getElementById(link.hash.slice(1)));
     let activeLink = null;
@@ -85,9 +89,29 @@
     const scheduleSectionUpdate = () => {
         if (!scrollFrame) scrollFrame = requestAnimationFrame(updateCurrentSection);
     };
+    const syncAlphabetOverflow = () => {
+        if (!alphabet) return;
+        if (alphabetBack) alphabetBack.hidden = alphabet.scrollLeft <= 1;
+        if (alphabetMore) {
+            alphabetMore.hidden = alphabet.scrollWidth - alphabet.clientWidth - alphabet.scrollLeft <= 1;
+        }
+    };
+    if (alphabet) {
+        alphabet.addEventListener('scroll', syncAlphabetOverflow, { passive: true });
+        for (const [button, direction] of [[alphabetBack, -1], [alphabetMore, 1]]) {
+            if (button) button.addEventListener('click', () => {
+                alphabet.scrollBy({
+                    left: direction * alphabet.clientWidth * 0.75,
+                    behavior: reducedMotion.matches ? 'instant' : 'smooth'
+                });
+            });
+        }
+        window.addEventListener('pageshow', syncAlphabetOverflow);
+    }
     const syncHeights = () => {
         root.style.setProperty('--nav-h', `${header.getBoundingClientRect().height}px`);
-        root.style.setProperty('--subnav-h', `${sectionNav ? sectionNav.getBoundingClientRect().height : 0}px`);
+        root.style.setProperty('--subnav-h', `${stickyNav ? stickyNav.getBoundingClientRect().height : 0}px`);
+        syncAlphabetOverflow();
         // A resized horizontal row may need to reveal the selected pill again.
         activeLink = null;
         scheduleSectionUpdate();
@@ -95,7 +119,7 @@
     if (window.ResizeObserver) {
         const observer = new ResizeObserver(syncHeights);
         observer.observe(header);
-        if (sectionNav) observer.observe(sectionNav);
+        if (stickyNav) observer.observe(stickyNav);
     }
     window.addEventListener('resize', syncHeights, { passive: true });
     window.addEventListener('scroll', scheduleSectionUpdate, { passive: true });
