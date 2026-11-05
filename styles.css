@@ -971,6 +971,10 @@ p, li, dd {
     line-height: 1.55;
 }
 
+.prose-registration .notice-note {
+    border-left: none;
+}
+
 .info-card + .notice-note {
     margin-top: 30px;
 }
