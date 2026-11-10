@@ -3450,16 +3450,18 @@ p, li, dd {
 .subnav-hint { display: none; }
 .page-subnav a { min-height: 44px; }
 
+.page-subnav-scroll {
+    display: flex;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-bright) var(--accent-tint);
+}
+.page-subnav-scroll a { flex: 1 0 auto; white-space: nowrap; }
+
 @media (max-width: 640px) {
     .page-subnav { gap: 8px; padding: 10px 0; }
-    .page-subnav-scroll {
-        display: flex;
-        overflow-x: auto;
-        overscroll-behavior-x: contain;
-        scrollbar-width: thin;
-        scrollbar-color: var(--accent-bright) var(--accent-tint);
-    }
-    .page-subnav-scroll a { flex: 0 0 auto; white-space: nowrap; }
+    .page-subnav-scroll a { flex-grow: 0; }
     .subnav-hint {
         display: block;
         margin: -12px 0 4px;
