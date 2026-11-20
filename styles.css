@@ -3116,13 +3116,17 @@ p, li, dd {
 }
 
 .photo-grid {
-    columns: 3;
-    column-gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
 }
 
 .photo-card {
-    break-inside: avoid;
-    margin: 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    margin: 0;
     overflow: hidden;
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
@@ -3131,18 +3135,27 @@ p, li, dd {
 
 .photo-link {
     display: block;
+    flex-shrink: 0;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
     cursor: zoom-in;
 }
 
 .photo-link img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--thumbnail-position, center);
 }
 
 .photo-link:hover img { opacity: 0.92; }
 .photo-link:focus-visible { outline-offset: -4px; }
 
 .photo-card figcaption {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-height: calc(2.8em + 24px);
     padding: 12px 16px;
     font-size: 0.86rem;
     line-height: 1.4;
@@ -3263,11 +3276,11 @@ p, li, dd {
 .photo-viewer-open-link:hover { color: #fff; }
 
 @media (max-width: 900px) {
-    .photo-grid { columns: 2; }
+    .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 560px) {
-    .photo-grid { columns: 1; }
+    .photo-grid { grid-template-columns: minmax(0, 1fr); }
     .photo-viewer-footer {
         flex-direction: column;
         align-items: flex-start;
