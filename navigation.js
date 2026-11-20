@@ -6,7 +6,7 @@
     const header = document.querySelector('.site-nav');
     const toggle = document.getElementById('nav-toggle');
     const menu = document.getElementById('nav-list');
-    const mobile = window.matchMedia('(max-width: 1010px)');
+    const mobile = window.matchMedia('(max-width: 1120px)');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const sectionNav = document.querySelector('.page-subnav, .schedule-jump');
     const alphabet = document.querySelector('.speaker-alphabet');
